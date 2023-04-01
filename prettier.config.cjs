@@ -2,5 +2,5 @@ module.exports = {
     tabWidth: 4,
     arrowParens: "avoid",
     tailwindConfig: "./tailwind.config.js",
-    printWidth: 100,
+    printWidth: 90,
 };

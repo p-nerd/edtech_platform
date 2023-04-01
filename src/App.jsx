@@ -1,8 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import AdminRoute from "./components/auths/AdminRoute";
+import StudentRoute from "./components/auths/StudentRoute";
+import useAuthCheck from "./hooks/useAuthCheck";
+import AdminLogin from "./pages/admin/AdminLogin";
 import AssignmentMarks from "./pages/admin/AssignmentMarks";
 import Assignments from "./pages/admin/Assignments";
 import Dashboard from "./pages/admin/Dashboard";
-import AdminLogin from "./pages/admin/AdminLogin";
 import Quizzes from "./pages/admin/Quizzes";
 import Videos from "./pages/admin/Videos";
 import Leaderboard from "./pages/Leaderboard";
@@ -10,9 +13,18 @@ import Login from "./pages/Login";
 import Player from "./pages/Player";
 import Quiz from "./pages/Quiz";
 import Register from "./pages/Register";
-import AdminRoute from "./components/auths/AdminRoute";
-import StudentRoute from "./components/auths/StudentRoute";
-import useAuthCheck from "./hooks/useAuthCheck";
+
+const adminRoute = (path, element) => {
+    return <Route path={path} element={<AdminRoute>{element}</AdminRoute>} />;
+};
+
+const studentRoute = (path, element) => {
+    return <Route path={path} element={<StudentRoute>{element}</StudentRoute>} />;
+};
+
+const publicRoute = (path, element) => {
+    return <Route path={path} element={element} />;
+};
 
 const App = () => {
     const authChecked = useAuthCheck();
@@ -22,79 +34,22 @@ const App = () => {
             {!authChecked ? (
                 <>Loading...</>
             ) : (
-                <>
-                    <Routes>
-                        <Route path="/admin/login" element={<AdminLogin />} />
-                        <Route
-                            path="/admin"
-                            element={
-                                <AdminRoute>
-                                    <Dashboard />
-                                </AdminRoute>
-                            }
-                        />
-                        <Route
-                            path="/admin/videos"
-                            element={
-                                <AdminRoute>
-                                    <Videos />
-                                </AdminRoute>
-                            }
-                        />
-                        <Route
-                            path="/admin/assignments"
-                            element={
-                                <AdminRoute>
-                                    <Assignments />
-                                </AdminRoute>
-                            }
-                        />
-                        <Route
-                            path="/admin/quizzes"
-                            element={
-                                <AdminRoute>
-                                    <Quizzes />
-                                </AdminRoute>
-                            }
-                        />
-                        <Route
-                            path="/admin/assignment-marks"
-                            element={
-                                <AdminRoute>
-                                    <AssignmentMarks />
-                                </AdminRoute>
-                            }
-                        />
+                <Routes>
+                    {publicRoute("/", <Navigate to="/login" />)}
+                    {publicRoute("/admin/login", <AdminLogin />)}
+                    {publicRoute("/login", <Login />)}
+                    {publicRoute("/register", <Register />)}
 
-                        <Route path="/" element={<Navigate to="/login" />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route
-                            path="/leaderboard"
-                            element={
-                                <StudentRoute>
-                                    <Leaderboard />
-                                </StudentRoute>
-                            }
-                        />
-                        <Route
-                            path="/player"
-                            element={
-                                <StudentRoute>
-                                    <Player />
-                                </StudentRoute>
-                            }
-                        />
-                        <Route
-                            path="/quiz"
-                            element={
-                                <StudentRoute>
-                                    <Quiz />
-                                </StudentRoute>
-                            }
-                        />
-                    </Routes>
-                </>
+                    {adminRoute("/admin", <Dashboard />)}
+                    {adminRoute("/admin/videos", <Videos />)}
+                    {adminRoute("/admin/assignments", <Assignments />)}
+                    {adminRoute("/admin/quizzes", <Quizzes />)}
+                    {adminRoute("/admin/assignment-marks", <AssignmentMarks />)}
+
+                    {studentRoute("/leaderboard", <Leaderboard />)}
+                    {studentRoute("/player", <Player />)}
+                    {studentRoute("/quiz", <Quiz />)}
+                </Routes>
             )}
         </>
     );

@@ -1,17 +1,28 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { userLoggedOut } from "../../features/auth/authSlice";
 import learningportalSVG from "./../../assets/image/learningportal.svg";
 
 const AdminLayout = ({ children }) => {
+    const dispatch = useDispatch();
+
+    const handleLogout = () => dispatch(userLoggedOut());
+
     return (
         <>
             <nav className="shadow-md">
                 <div className="mx-auto flex max-w-7xl justify-between px-5 py-3 lg:px-0">
-                    <img className="h-10" src={learningportalSVG} />
+                    <Link to="/">
+                        <img className="h-10" src={learningportalSVG} />
+                    </Link>
                     <div className="flex items-center gap-3">
                         <Link to="/admin" className="font-bold">
                             Admin
                         </Link>
-                        <button className="flex items-center gap-2 rounded-full bg-red-600 px-4 py-1 text-sm font-medium transition-all hover:bg-red-700">
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 rounded-full bg-red-600 px-4 py-1 text-sm font-medium transition-all hover:bg-red-700"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

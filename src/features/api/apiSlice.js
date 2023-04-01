@@ -27,3 +27,4 @@ const apiSlice = createApi({
 });
 
 export default apiSlice;
+export const { endpoints } = apiSlice;

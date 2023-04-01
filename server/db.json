@@ -48,6 +48,25 @@
       "role": "student",
       "name": "Arif",
       "id": 7
+    },
+    {
+      "email": "shihab4t@gmail.com",
+      "password": "$2a$10$L2Z8PnLsGI4csBCALEanBeoD7Gcogeui55BOayKb7Iqt0Titq5wwm",
+      "name": "Shihab Mahamud",
+      "id": 8
+    },
+    {
+      "email": "shihab4t2@gmail.com",
+      "password": "$2a$10$ljRWcdVFguQOL9zhWrdZHe0ClMK90yHt8ix6kYlzN.tnx7u3aQHG6",
+      "name": "Shihab 2",
+      "id": 9
+    },
+    {
+      "email": "shihab4t3@gmail.com",
+      "password": "$2a$10$gTosjiBXtr18oBrstpkVnebOk41hEwPLRMxL.wL1epw4SfZHihJ22",
+      "name": "Shihab 3",
+      "role": "student",
+      "id": 10
     }
   ],
   "videos": [
@@ -61,13 +80,22 @@
       "createdAt": "2023-01-15T15:17:01.727Z"
     },
     {
-      "id": 2,
-      "title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
-      "description": "JavaScript Tips and Tricks - JavaScript Job Interview Questions - Bangla Tutorial \nIn this video, I have shown 8 more JavaScript pro tips that will make a JavaScript Developer's life easier.",
-      "url": "https://www.youtube.com/embed/E9_R88eKcBM",
-      "views": "91.2K",
-      "duration": "31:30",
-      "createdAt": "2023-02-24T17:59:00.000Z"
+      "title": "hello 2",
+      "url": "https://youtu.be/pKobesyDwSA?list=PLA0cV1UDgWf1cMzqW6osE_JBH0Kyw2nTl",
+      "views": "",
+      "duration": "",
+      "description": "asdfsdfd",
+      "createdAt": "2023-04-01T15:21:34.680Z",
+      "id": 3
+    },
+    {
+      "title": "088 | Seerah: Life of the Prophet Muhammed ﷺ | Shaykh Abdul Qayum",
+      "url": "https://youtu.be/pKobesyDwSA?list=PLA0cV1UDgWf1cMzqW6osE_JBH0Kyw2nTl",
+      "views": "56k",
+      "duration": "1:10:28",
+      "description": "রাসূল সাঃ এর জীবনী\nআলোচনায়: শায়খ আব্দুল কাইয়ুম\nপরিবেশনায়: মিনার মিডিয়া\nওয়েব সাইট: https://www.minarmedia.co.uk/\nফেইসবুক: https://www.facebook.com/MinarMedia/",
+      "createdAt": "2023-04-01T17:16:03.678Z",
+      "id": 9
     }
   ],
   "assignments": [

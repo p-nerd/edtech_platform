@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { selectAuth } from "../features/auth/authSelectors";
 
 const useIsLoggedIn = () => {
-    const auth = useSelector(state => state.auth);
+    const auth = selectAuth();
 
     if (auth?.accessToken && auth?.user) {
         return true;

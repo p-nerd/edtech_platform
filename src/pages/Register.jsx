@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmailField from "../components/auths/EmailField";
 import PasswordField from "../components/auths/PasswordField";
 import SubmitButton from "../components/auths/SubmitButton";
+import Error from "../components/common/Error";
 import AuthLayout from "../components/layouts/AuthLayout";
+import { useRegisterMutation } from "../features/auth/authApi";
+import useIsLoggedIn from "../hooks/useIsLoggedIn";
 import useSetTitle from "../hooks/useSetTitle";
+import SubField from "../components/auths/SubField";
 
 const Register = () => {
     useSetTitle("Register");
+
+    const navigate = useNavigate();
+    const isLogin = useIsLoggedIn();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -15,30 +22,26 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
-    const [register, { data, isLoading, isError, registerError: error2 }] = useRegisterMutation();
-
-    const navigate = useNavigate();
+    const [register, { isLoading, error: registerError }] = useRegisterMutation();
 
     useEffect(() => {
-        if (isError) {
-            setError(registerError ? registerError?.error : "");
+        if (registerError) {
+            setError(registerError?.data);
+        } else if (isLogin) {
+            setName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setError("");
+            navigate("/player");
         }
-        if (data?.accessToken && data?.user) {
-            navigate("/inbox");
-        }
-    }, [data, isError]);
+    }, [isLogin, registerError]);
 
     const handleSubmit = () => {
         if (confirmPassword !== password) {
             setError("Password do not match!");
         } else {
-            setError("");
             register({ name, email, password });
-            setName("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-            setAgree(false);
         }
     };
 
@@ -50,8 +53,6 @@ const Register = () => {
                     handleSubmit();
                 }}
                 className="mt-8 space-y-6"
-                action="#"
-                method="POST"
             >
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="-space-y-px rounded-md shadow-sm">
@@ -90,9 +91,13 @@ const Register = () => {
                         />
                     </div>
                 </div>
-                <SubmitButton label="Create Account" />
+                <div className="flex items-center justify-between">
+                    <SubField to="/admin/login" label="Are your admin?" />
+                    <SubField to="/login" label="Are you student?" />
+                </div>
+                <SubmitButton disabled={isLoading} label="Create Account" />
+                {error && <Error message={error} />}
             </form>
-            {error && <Error message={error} />}
         </AuthLayout>
     );
 };

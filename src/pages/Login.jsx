@@ -4,6 +4,7 @@ import EmailField from "../components/auths/EmailField";
 import PasswordField from "../components/auths/PasswordField";
 import SubField from "../components/auths/SubField";
 import SubmitButton from "../components/auths/SubmitButton";
+import Error from "../components/common/Error";
 import AuthLayout from "../components/layouts/AuthLayout";
 import { useLoginMutation } from "../features/auth/authApi";
 import useSetTitle from "../hooks/useSetTitle";
@@ -13,28 +14,27 @@ const Login = () => {
     useSetTitle("Login");
 
     const navigate = useNavigate();
+    const isLogin = useIsLoggedIn();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const isLogin = useIsLoggedIn();
-    const [login, { isLoading, isError, error: loginError }] = useLoginMutation();
+    const [login, { isLoading, error: loginError }] = useLoginMutation();
 
     useEffect(() => {
-        if (isError) {
-            setError(loginError ? loginError?.error : "");
-        }
-        if (isLogin) {
+        if (loginError) {
+            setError(loginError?.data);
+        } else if (isLogin) {
+            setEmail("");
+            setPassword("");
+            setError("");
             navigate("/player");
         }
-    }, [isLogin, isError]);
+    }, [isLogin, loginError]);
 
     const handleSubmit = () => {
-        setError("");
         login({ email, password });
-        setEmail("");
-        setPassword("");
     };
 
     return (
@@ -51,7 +51,10 @@ const Login = () => {
                     <EmailField email={email} setEmail={setEmail} />
                     <PasswordField password={password} setPassword={setPassword} />
                 </div>
-                <SubField to="/register" label="Create New Account" />
+                <div className="flex items-center justify-between">
+                    <SubField to="/admin/login" label="Are your admin?" />
+                    <SubField to="/register" label="Create New Account" />
+                </div>
                 <SubmitButton disabled={isLoading} label="Sign in" />
                 {error && <Error message={error} />}
             </form>
