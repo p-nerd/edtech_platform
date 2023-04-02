@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setQuizEditId } from "../../../features/modal/modalSlice";
 import { useEditQuizMutation, useGetQuizzesQuery } from "../../../features/quizzes/quizzesApi";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
-import { errorTost } from "../../../utils/tost";
+import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";

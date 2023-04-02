@@ -1,7 +1,3 @@
-export const sliceStr = (stringValue, length) => {
-    return stringValue?.slice(0, length) + (stringValue?.length >= length ? "..." : "");
-};
-
 export const convertDateTime = dateTime => {
     const dateStr = dateTime;
     const dateObj = new Date(dateStr);
@@ -20,4 +16,16 @@ export const convertDateTime = dateTime => {
     });
 
     return `${formattedDate} ${formattedTime}`;
+};
+
+export const convertDate = dateTime => {
+    const dateStr = dateTime;
+    const dateObj = new Date(dateStr);
+
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+    });
+    return formattedDate;
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { errorTost } from "../../../utils/tost";
+import { errorTost } from "../../../utils/commonUtil";
 import DeleteIcon from "../../icons/DeleteIcon";
 import EditIcon from "../../icons/EditIcon";
 import InputField from "../modals/InputField";

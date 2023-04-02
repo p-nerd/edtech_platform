@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useEditAssignmentMarkMutation } from "../../../features/assignmentMark/assignmentMarkApi";
-import { errorTost } from "../../../utils/tost";
-import { convertDateTime } from "../../../utils/util";
+import { convertDateTime } from "../../../utils/dateUtil";
+import { errorTost } from "../../../utils/commonUtil";
 
 const AssignmentMarkItem = ({ assignmentMark }) => {
     const { id, student_name, title, createdAt, totalMark, mark, repo_link, status } =

@@ -6,7 +6,7 @@ import {
 } from "../../../features/assignment/assignmentApi";
 import { setAssignmentEditId } from "../../../features/modal/modalSlice";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
-import { errorTost } from "../../../utils/tost";
+import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";

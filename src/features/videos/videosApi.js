@@ -1,9 +1,15 @@
+import { store } from "../../store";
 import apiSlice from "../api/apiSlice";
+import { setActiveVideo } from "./videosSlice";
 
 export const videosApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getVideos: builder.query({
             query: () => "/videos",
+            onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
+                const { data } = await queryFulfilled;
+                dispatch(setActiveVideo(data[0]));
+            },
         }),
         deleteVideo: builder.mutation({
             query: videoId => ({
