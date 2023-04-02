@@ -6,54 +6,61 @@ import InputField from "../modals/InputField";
 import OptionsField from "../modals/OptionsField";
 
 const QuizOptions = ({ options, setOptions }) => {
-    const [option, setOption] = useState("");
-    const [optionCorrect, setOptionCorrect] = useState(0);
+    const [optionTitle, setOptionTitle] = useState("");
+    const [isOptionCorrect, setIsOptionCorrect] = useState(0);
     const [optionUpdateId, setOptionUpdateId] = useState(0);
+
+    const resetState = () => {
+        setOptionTitle("");
+        setIsOptionCorrect(0);
+        setOptionUpdateId(0);
+    };
 
     const handleAddOrUpdateOption = () => {
         if (optionUpdateId) {
             setOptions(prev =>
-                prev?.map(p =>
-                    p.id === optionUpdateId ? { ...p, option, isCorrect: optionCorrect } : p
-                )
+                prev?.map(option => {
+                    if (option.id === optionUpdateId) {
+                        return { ...option, option: optionTitle, isCorrect: isOptionCorrect };
+                    }
+                    return option;
+                })
             );
-            setOption("");
-            setOptionCorrect(0);
-            setOptionUpdateId(0);
+            resetState();
             return;
         }
         if (options.length === 4) {
             errorTost("Maximum 4 option allowed! :)");
             return;
         }
-        if (option === "") {
+        if (optionTitle === "") {
             return;
         }
         if (options.length === 0) {
-            setOptions([{ id: 1, option, isCorrect: optionCorrect ? true : false }]);
-            setOption("");
-            setOptionCorrect(0);
+            setOptions([{ id: 1, option: optionTitle, isCorrect: isOptionCorrect ? true : false }]);
+            resetState();
         } else {
             setOptions(prev => [
                 ...prev,
                 {
                     id: prev[prev.length - 1].id + 1,
-                    option,
-                    isCorrect: optionCorrect ? true : false,
+                    option: optionTitle,
+                    isCorrect: isOptionCorrect ? true : false,
                 },
             ]);
-            setOption("");
-            setOptionCorrect(0);
+            resetState();
         }
     };
 
-    const handleDelete = id => setOptions(prev => prev.filter(p => p.id !== id));
+    const handleDelete = id => {
+        setOptions(prev => prev.filter(p => p.id !== id));
+    };
 
     const handleClickEdit = id => {
         const option = options?.find(o => o.id === id);
         setOptionUpdateId(id);
-        setOption(option.option);
-        setOptionCorrect(option.isCorrect ? 1 : 0);
+        setOptionTitle(option.option);
+        setIsOptionCorrect(option.isCorrect ? 1 : 0);
     };
 
     return (
@@ -86,8 +93,8 @@ const QuizOptions = ({ options, setOptions }) => {
                     <div className="w-3/4">
                         <InputField
                             notRequired
-                            value={option}
-                            setValue={setOption}
+                            value={optionTitle}
+                            setValue={setOptionTitle}
                             label="Option"
                             id="option"
                             ph="Enter question answer option"
@@ -99,8 +106,8 @@ const QuizOptions = ({ options, setOptions }) => {
                                 { id: 1, label: "true" },
                                 { id: 0, label: "false" },
                             ]}
-                            value={optionCorrect}
-                            setValue={setOptionCorrect}
+                            value={isOptionCorrect}
+                            setValue={setIsOptionCorrect}
                             label="Is Correct"
                             id="chooseOption"
                             ph="Choose option correct or wrong"

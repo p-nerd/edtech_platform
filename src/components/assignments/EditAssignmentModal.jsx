@@ -4,7 +4,7 @@ import {
     useEditAssignmentMutation,
     useGetAssignmentsQuery,
 } from "../../features/assignment/assignmentApi";
-import { toggleAssignmentEditOpen } from "../../features/modal/modalSlice";
+import { setAssignmentEditId } from "../../features/modal/modalSlice";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import { errorTost } from "../../utils/tost";
 import SubmitButton from "../auths/SubmitButton";
@@ -15,44 +15,16 @@ import OptionsField from "../modals/OptionsField";
 const EditAssignmentModal = () => {
     const dispatch = useDispatch();
 
-    const assignmentEditOpen = useSelector(state => state?.modal?.assignmentEditOpen);
-    const assignmentEditId = useSelector(state => state?.modal?.assignmentEditId);
-
-    const setOpen = () => dispatch(toggleAssignmentEditOpen());
-
     const [title, setTitle] = useState("");
     const [videoId, setVideoId] = useState("none");
     const [totalMark, setTotalMark] = useState("");
+
+    const assignmentEditId = useSelector(state => state?.modal?.assignmentEditId);
 
     const { data: videos, error: videoError } = useGetVideosQuery();
     const { data: assignments, error: assignmentError } = useGetAssignmentsQuery();
 
     const [editAssignment, { isLoading, isSuccess, error }] = useEditAssignmentMutation();
-
-    useEffect(() => {
-        if (isSuccess) {
-            setTitle("");
-            setVideoId("none");
-            setTotalMark("");
-            setOpen(false);
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
-        if (
-            assignmentEditOpen &&
-            assignmentEditId &&
-            assignments &&
-            assignments?.length !== 0
-        ) {
-            const assignment = assignments?.find(a => a.id === assignmentEditId);
-            if (assignment) {
-                setTitle(assignment.title);
-                setVideoId(assignment.video_id);
-                setTotalMark(assignment.totalMark);
-            }
-        }
-    }, [assignmentEditId, assignmentEditOpen, assignments]);
 
     useEffect(() => {
         if (error) {
@@ -65,6 +37,30 @@ const EditAssignmentModal = () => {
             errorTost(assignmentError?.data);
         }
     }, [error, videoError, assignmentError]);
+
+    useEffect(() => {
+        if (assignmentEditId && assignments && assignments?.length !== 0) {
+            const assignment = assignments?.find(a => a.id === assignmentEditId);
+            if (assignment) {
+                setTitle(assignment.title);
+                setVideoId(assignment.video_id);
+                setTotalMark(assignment.totalMark);
+            }
+        }
+    }, [assignmentEditId, assignments]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setTitle("");
+            setVideoId("none");
+            setTotalMark("");
+            handleClose(false);
+        }
+    }, [isSuccess]);
+
+    const handleClose = () => {
+        dispatch(setAssignmentEditId(0));
+    };
 
     const handleSubmit = () => {
         if (videoId === "none") {
@@ -84,7 +80,7 @@ const EditAssignmentModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Add Assignment" open={assignmentEditOpen} setOpen={setOpen}>
+            <Modal title="Update Assignment" show={assignmentEditId} onClose={handleClose}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -119,7 +115,7 @@ const EditAssignmentModal = () => {
                             id="totalMark"
                             ph="Enter Total Mark (like: 100)"
                         />
-                        <SubmitButton disabled={isLoading} label="Save Assignment" />
+                        <SubmitButton disabled={isLoading} label="Update Assignment" />
                     </div>
                 </form>
             </Modal>

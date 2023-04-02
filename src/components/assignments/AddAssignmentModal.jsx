@@ -19,15 +19,6 @@ const AddAssignmentModal = () => {
     const [addAssignment, { isLoading, isSuccess, error }] = useAddAssignmentMutation();
 
     useEffect(() => {
-        if (isSuccess) {
-            setTitle("");
-            setVideoId("none");
-            setTotalMark("");
-            setOpen(false);
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
         if (error) {
             errorTost(error?.data);
         }
@@ -35,6 +26,15 @@ const AddAssignmentModal = () => {
             errorTost(videoError?.data);
         }
     }, [error, videoError]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setTitle("");
+            setVideoId("none");
+            setTotalMark("");
+            setOpen(false);
+        }
+    }, [isSuccess]);
 
     const handleSubmit = () => {
         if (videoId === "none") {
@@ -51,10 +51,10 @@ const AddAssignmentModal = () => {
 
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
+            <button className="btn ml-auto" onClick={() => setOpen(true)}>
                 Add Assignment
             </button>
-            <Modal title="Add Assignment" open={open} setOpen={setOpen}>
+            <Modal title="Add Assignment" show={open} onClose={() => setOpen(false)}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

@@ -19,20 +19,10 @@ const EditQuizModal = () => {
     const [videoId, setVideoId] = useState("none");
     const [options, setOptions] = useState([]);
 
-    const setClose = () => dispatch(setQuizEditId(0));
-
     const { data: videos, error: videoError } = useGetVideosQuery();
     const { data: quizzes, error: quizzesError } = useGetQuizzesQuery();
-    const [editQuiz, { isLoading, isSuccess, error }] = useEditQuizMutation();
 
-    useEffect(() => {
-        if (isSuccess) {
-            setQuestion("");
-            setVideoId("none");
-            setOptions([]);
-            setClose(false);
-        }
-    }, [isSuccess]);
+    const [editQuiz, { isLoading, isSuccess, error }] = useEditQuizMutation();
 
     useEffect(() => {
         if (error) {
@@ -57,6 +47,19 @@ const EditQuizModal = () => {
         }
     }, [quizEditId, quizzes]);
 
+    useEffect(() => {
+        if (isSuccess) {
+            setQuestion("");
+            setVideoId("none");
+            setOptions([]);
+            setClose(false);
+        }
+    }, [isSuccess]);
+
+    const setClose = () => {
+        dispatch(setQuizEditId(0));
+    };
+
     const handleSubmit = () => {
         if (videoId === "none") {
             errorTost("Choose video is required");
@@ -75,7 +78,7 @@ const EditQuizModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Assignment" open={quizEditId} setOpen={setClose}>
+            <Modal title="Edit Assignment" show={quizEditId} onClose={setClose}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

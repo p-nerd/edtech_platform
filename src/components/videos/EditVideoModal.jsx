@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleVideoEditOpen } from "../../features/modal/modalSlice";
+import { setVideoEditId } from "../../features/modal/modalSlice";
 import { useEditVideoMutation, useGetVideosQuery } from "../../features/videos/videosApi";
 import { errorTost } from "../../utils/tost";
 import SubmitButton from "../auths/SubmitButton";
@@ -9,24 +9,31 @@ import Modal from "../modals/Modal";
 import TextAreaField from "../modals/TextAreaField";
 
 const EditVideoModal = () => {
-    const dispatch = useDispatch();
-    const videoEditOpen = useSelector(state => state?.modal?.videoEditOpen);
-    const videoEditId = useSelector(state => state?.modal?.videoEditId);
-
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
     const [views, setViews] = useState("");
     const [duration, setDuration] = useState("");
     const [description, setDescription] = useState("");
 
-    const setOpen = () => {
-        dispatch(toggleVideoEditOpen());
-    };
+    const dispatch = useDispatch();
+
+    const videoEditId = useSelector(state => state?.modal?.videoEditId);
 
     const { data: videos, error: videosError } = useGetVideosQuery();
 
+    const [editVideo, { isSuccess, error }] = useEditVideoMutation();
+
     useEffect(() => {
-        if (videoEditOpen && videoEditId && videos && videos?.length !== 0) {
+        if (error) {
+            errorTost(error?.data);
+        }
+        if (videosError) {
+            errorTost(videosError?.data);
+        }
+    }, [error, videosError]);
+
+    useEffect(() => {
+        if (videoEditId && videos && videos?.length !== 0) {
             const video = videos?.find(v => v.id === videoEditId);
             if (video) {
                 setTitle(video.title);
@@ -36,9 +43,17 @@ const EditVideoModal = () => {
                 setDescription(video.description);
             }
         }
-    }, [videoEditId, videoEditOpen, videos]);
+    }, [videoEditId, videos]);
 
-    const [editVideo, { isSuccess, error }] = useEditVideoMutation();
+    useEffect(() => {
+        if (isSuccess) {
+            handleClose(false);
+        }
+    }, [isSuccess]);
+
+    const handleClose = () => {
+        dispatch(setVideoEditId(0));
+    };
 
     const handleSubmit = () => {
         editVideo({
@@ -53,24 +68,9 @@ const EditVideoModal = () => {
         });
     };
 
-    useEffect(() => {
-        if (isSuccess) {
-            setOpen(false);
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
-        if (error) {
-            errorTost(error?.data);
-        }
-        if (videosError) {
-            errorTost(videosError?.data);
-        }
-    }, [error, videosError]);
-
     return (
         <div className="flex w-full">
-            <Modal title="Edit Video" open={videoEditOpen} setOpen={setOpen}>
+            <Modal title="Edit Video" show={videoEditId} onClose={() => handleClose()}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

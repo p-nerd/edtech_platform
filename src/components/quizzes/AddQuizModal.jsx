@@ -20,15 +20,6 @@ const AddQuizModal = () => {
     const [addQuiz, { isLoading, isSuccess, error }] = useAddQuizMutation();
 
     useEffect(() => {
-        if (isSuccess) {
-            setQuestion("");
-            setVideoId("none");
-            setOptions([]);
-            setOpen(false);
-        }
-    }, [isSuccess]);
-
-    useEffect(() => {
         if (error) {
             errorTost(error?.data);
         }
@@ -36,6 +27,15 @@ const AddQuizModal = () => {
             errorTost(videoError?.data);
         }
     }, [error, videoError]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setQuestion("");
+            setVideoId("none");
+            setOptions([]);
+            setOpen(false);
+        }
+    }, [isSuccess]);
 
     const handleSubmit = () => {
         if (videoId === "none") {
@@ -55,7 +55,7 @@ const AddQuizModal = () => {
             <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
                 Add Quiz
             </button>
-            <Modal title="Add Assignment" open={open} setOpen={setOpen}>
+            <Modal title="Add Assignment" show={open} onClose={setOpen}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

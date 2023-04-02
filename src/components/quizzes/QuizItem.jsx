@@ -7,9 +7,9 @@ import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
 
 const QuizItem = ({ quiz }) => {
-    const dispatch = useDispatch();
-
     const { id, question, video_title } = quiz;
+
+    const dispatch = useDispatch();
 
     const [deleteQuiz, { error }] = useDeleteQuizMutation();
 

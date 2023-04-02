@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAddVideoMutation } from "../../features/videos/videosApi";
-import Modal from "../modals/Modal";
+import { errorTost } from "../../utils/tost";
 import SubmitButton from "../auths/SubmitButton";
 import InputField from "../modals/InputField";
+import Modal from "../modals/Modal";
 import TextAreaField from "../modals/TextAreaField";
-import { errorTost } from "../../utils/tost";
 
 const AddVideoModal = () => {
     const [open, setOpen] = useState(false);
@@ -18,6 +18,12 @@ const AddVideoModal = () => {
     const [addVideo, { isLoading, isSuccess, error }] = useAddVideoMutation();
 
     useEffect(() => {
+        if (error) {
+            errorTost(error?.data);
+        }
+    }, [error]);
+
+    useEffect(() => {
         if (isSuccess) {
             setTitle("");
             setLink("");
@@ -27,12 +33,6 @@ const AddVideoModal = () => {
             setOpen(false);
         }
     }, [isSuccess]);
-
-    useEffect(() => {
-        if (error) {
-            errorTost(error?.data);
-        }
-    }, [error]);
 
     const handleSubmit = () => {
         addVideo({
@@ -50,7 +50,7 @@ const AddVideoModal = () => {
             <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
                 Add Video
             </button>
-            <Modal title="Add Video" open={open} setOpen={setOpen}>
+            <Modal title="Add Video" show={open} onClose={() => setOpen(false)}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
