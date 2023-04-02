@@ -129,7 +129,7 @@
       "title": "Assignment 2 - Implement Best Practices",
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
-      "totalMark": "2444"
+      "totalMark": "244"
     },
     {
       "id": 4,
@@ -304,9 +304,9 @@
       "title": "Assignment 1 - Implement Debounce Function",
       "createdAt": "2021-01-15T15:17:01.727Z",
       "totalMark": 100,
-      "mark": 0,
+      "mark": 70,
       "repo_link": "https://github.com/Learn-with-Sumit/assignment-1",
-      "status": "pending"
+      "status": "published"
     },
     {
       "id": 2,
@@ -321,13 +321,37 @@
       "status": "published"
     },
     {
-      "id": 2,
+      "id": 3,
       "student_id": 3,
       "student_name": "Akash Ahmed",
       "assignment_id": 1,
       "title": "Assignment 2 - Implement Best Practices",
       "createdAt": "2021-01-15T15:17:01.727Z",
       "totalMark": 100,
+      "mark": 80,
+      "repo_link": "https://github.com/Learn-with-Sumit/assignment-1",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "student_id": 3,
+      "student_name": "Akash Ahmed",
+      "assignment_id": 1,
+      "title": "Assignment 2 - Implement Best Practices",
+      "createdAt": "2021-01-15T15:17:01.727Z",
+      "totalMark": 70,
+      "mark": 70,
+      "repo_link": "https://github.com/Learn-with-Sumit/assignment-1",
+      "status": "published"
+    },
+    {
+      "id": 5,
+      "student_id": 3,
+      "student_name": "Akash Ahmed",
+      "assignment_id": 1,
+      "title": "Assignment 2 - Implement Best Practices",
+      "createdAt": "2021-01-15T15:17:01.727Z",
+      "totalMark": 70,
       "mark": 50,
       "repo_link": "https://github.com/Learn-with-Sumit/assignment-1",
       "status": "published"
