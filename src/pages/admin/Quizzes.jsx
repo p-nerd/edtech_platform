@@ -1,5 +1,6 @@
 import AdminLayout from "../../components/layouts/AdminLayout";
 import AddQuizModal from "../../components/quizzes/AddQuizModal";
+import EditQuizModal from "../../components/quizzes/EditQuizModal";
 import QuizItem from "../../components/quizzes/QuizItem";
 import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
 import useSetTitle from "../../hooks/useSetTitle";
@@ -15,6 +16,7 @@ const Quizzes = () => {
                 <div className="mx-auto max-w-full px-5 lg:px-20">
                     <div className="bg-opacity-10 px-3 py-20">
                         <AddQuizModal />
+                        <EditQuizModal />
                         <div className="mt-4 overflow-x-auto">
                             {isLoading ? (
                                 <>Loading...</>
@@ -28,9 +30,7 @@ const Quizzes = () => {
                                         <tr>
                                             <th className="table-th">Question</th>
                                             <th className="table-th">Video</th>
-                                            <th className="table-th justify-center">
-                                                Action
-                                            </th>
+                                            <th className="table-th justify-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-600/50">

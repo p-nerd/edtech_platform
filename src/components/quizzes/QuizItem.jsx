@@ -1,10 +1,14 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setQuizEditId } from "../../features/modal/modalSlice";
 import { useDeleteQuizMutation } from "../../features/quizzes/quizzesApi";
 import { sliceStr } from "../../utils/util";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
 
 const QuizItem = ({ quiz }) => {
+    const dispatch = useDispatch();
+
     const { id, question, video_title } = quiz;
 
     const [deleteQuiz, { error }] = useDeleteQuizMutation();
@@ -16,6 +20,7 @@ const QuizItem = ({ quiz }) => {
     }, [error]);
 
     const handleDelete = () => deleteQuiz(id);
+    const handleEdit = () => dispatch(setQuizEditId(id));
 
     return (
         <tr>
@@ -25,7 +30,7 @@ const QuizItem = ({ quiz }) => {
                 <span onClick={handleDelete}>
                     <DeleteIcon />
                 </span>
-                <span>
+                <span onClick={handleEdit}>
                     <EditIcon />
                 </span>
             </td>

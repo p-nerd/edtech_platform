@@ -5,6 +5,7 @@ const initialState = {
     videoEditId: 0,
     assignmentEditOpen: false,
     assignmentEditId: 0,
+    quizEditId: 0,
 };
 
 const modalSlice = createSlice({
@@ -23,6 +24,9 @@ const modalSlice = createSlice({
         setAssignmentEditId: (state, action) => {
             state.assignmentEditId = action.payload;
         },
+        setQuizEditId: (state, action) => {
+            state.quizEditId = action.payload;
+        },
     },
 });
 
@@ -33,4 +37,5 @@ export const {
     setVideoEditId,
     toggleAssignmentEditOpen,
     setAssignmentEditId,
+    setQuizEditId,
 } = modalSlice.actions;
