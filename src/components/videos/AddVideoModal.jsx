@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAddVideoMutation } from "../../features/videos/videosApi";
-import Modal from "../common/Modal";
+import Modal from "../modals/Modal";
 import SubmitButton from "../auths/SubmitButton";
-import InputField from "./InputField";
-import TextAreaField from "./TextAreaField";
+import InputField from "../modals/InputField";
+import TextAreaField from "../modals/TextAreaField";
 import { errorTost } from "../../utils/tost";
 
 const AddVideoModal = () => {
@@ -19,6 +19,11 @@ const AddVideoModal = () => {
 
     useEffect(() => {
         if (isSuccess) {
+            setTitle("");
+            setLink("");
+            setViews("");
+            setDuration("");
+            setDescription("");
             setOpen(false);
         }
     }, [isSuccess]);
@@ -69,6 +74,7 @@ const AddVideoModal = () => {
                         />
                         <div className="flex space-x-3">
                             <InputField
+                                notRequired
                                 value={views}
                                 setValue={setViews}
                                 label="Views"
@@ -76,6 +82,7 @@ const AddVideoModal = () => {
                                 ph="Enter views (like: 51.2K)"
                             />
                             <InputField
+                                notRequired
                                 value={duration}
                                 setValue={setDuration}
                                 label="Duration"

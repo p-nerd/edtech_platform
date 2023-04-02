@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { endpoints } from "../../features/api/apiSlice";
 import { toggleVideoEditOpen } from "../../features/modal/modalSlice";
-import { useEditVideoMutation } from "../../features/videos/videosApi";
+import { useEditVideoMutation, useGetVideosQuery } from "../../features/videos/videosApi";
 import { errorTost } from "../../utils/tost";
 import SubmitButton from "../auths/SubmitButton";
-import Modal from "../common/Modal";
-import InputField from "./InputField";
-import TextAreaField from "./TextAreaField";
+import Modal from "../modals/Modal";
+import InputField from "../modals/InputField";
+import TextAreaField from "../modals/TextAreaField";
 
 const EditVideoModal = () => {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const EditVideoModal = () => {
         dispatch(toggleVideoEditOpen());
     };
 
-    const videos = endpoints.getVideos.useQueryState().data;
+    const { data: videos, error: videosError } = useGetVideosQuery();
 
     useEffect(() => {
         if (videoEditOpen && videoEditId && videos && videos?.length !== 0) {
@@ -64,7 +64,10 @@ const EditVideoModal = () => {
         if (error) {
             errorTost(error?.data);
         }
-    }, [error]);
+        if (videosError) {
+            errorTost(videosError?.data);
+        }
+    }, [error, videosError]);
 
     return (
         <div className="flex w-full">
@@ -92,6 +95,7 @@ const EditVideoModal = () => {
                         />
                         <div className="flex space-x-3">
                             <InputField
+                                notRequired
                                 value={views}
                                 setValue={setViews}
                                 label="Views"
@@ -99,6 +103,7 @@ const EditVideoModal = () => {
                                 ph="Enter views (like: 51.2K)"
                             />
                             <InputField
+                                notRequired
                                 value={duration}
                                 setValue={setDuration}
                                 label="Duration"

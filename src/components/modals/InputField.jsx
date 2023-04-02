@@ -1,8 +1,9 @@
-const InputField = ({ value, setValue, label, id, ph, type }) => {
+const InputField = ({ value, setValue, label, id, ph, type, notRequired }) => {
     return (
         <div className="flex w-full flex-col space-y-3 rounded bg-[#1E293B] p-4">
             <label htmlFor={id}>{label}</label>
             <input
+                required={!notRequired}
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 type={type}
@@ -17,6 +18,7 @@ const InputField = ({ value, setValue, label, id, ph, type }) => {
 
 InputField.defaultProps = {
     type: "text",
+    notRequired: false,
 };
 
 export default InputField;

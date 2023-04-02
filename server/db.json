@@ -72,7 +72,7 @@
   "videos": [
     {
       "id": 1,
-      "title": "Debounce Function in JavaScript - JavaScript Job Interview question",
+      "title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
       "description": "In this video, I have explained about the debounce function in JavaScript. This is a common question interviewers ask at Job Interviews. If you watch this video carefully, you will understand what is debounce and how to handle it with custom debounce function.",
       "url": "https://www.youtube.com/embed/dD9O8DnIBj4",
       "views": "51.2K",
@@ -80,22 +80,49 @@
       "createdAt": "2023-01-15T15:17:01.727Z"
     },
     {
-      "title": "hello 2",
-      "url": "https://youtu.be/pKobesyDwSA?list=PLA0cV1UDgWf1cMzqW6osE_JBH0Kyw2nTl",
-      "views": "",
-      "duration": "",
-      "description": "asdfsdfd",
-      "createdAt": "2023-04-01T15:21:34.680Z",
-      "id": 3
-    },
-    {
-      "title": "088 | Seerah: Life of the Prophet Muhammed ﷺ | Shaykh Abdul Qayum",
+      "title": "Seerah: Life of the Prophet Muhammed ﷺ ",
       "url": "https://youtu.be/pKobesyDwSA?list=PLA0cV1UDgWf1cMzqW6osE_JBH0Kyw2nTl",
       "views": "56k",
       "duration": "1:10:28",
       "description": "রাসূল সাঃ এর জীবনী\nআলোচনায়: শায়খ আব্দুল কাইয়ুম\nপরিবেশনায়: মিনার মিডিয়া\nওয়েব সাইট: https://www.minarmedia.co.uk/\nফেইসবুক: https://www.facebook.com/MinarMedia/",
       "createdAt": "2023-04-01T17:16:03.678Z",
       "id": 9
+    },
+    {
+      "title": "Java for the Haters in 100 Seconds",
+      "url": "https://www.youtube.com/embed/m4-HM_sCvtQ",
+      "views": "2M",
+      "duration": "2:21",
+      "description": "Java is one of the most successful and most dreaded technologies in the computer science world. Let's roast this powerful open-source programming language to find out why it has so many haters. \n",
+      "createdAt": "2023-04-02T00:45:59.164Z",
+      "id": 10
+    },
+    {
+      "title": "Hello word",
+      "url": "https://www.youtube.com/embed/E9ijIFBHZGs",
+      "views": "",
+      "duration": "",
+      "description": "fasdfsdafsdf",
+      "createdAt": "2023-04-02T00:54:54.213Z",
+      "id": 11
+    },
+    {
+      "title": "53sdafsadf",
+      "url": "fasfasdf",
+      "views": "45",
+      "duration": "55",
+      "description": "23345345",
+      "createdAt": "2023-04-02T10:37:02.628Z",
+      "id": 14
+    },
+    {
+      "title": "234234",
+      "url": "afsdfsdf",
+      "views": "fasdfsd",
+      "duration": "fasdfs",
+      "description": "sxxxx",
+      "createdAt": "2023-04-02T10:37:14.786Z",
+      "id": 15
     }
   ],
   "assignments": [
@@ -112,6 +139,48 @@
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
       "totalMark": 100
+    },
+    {
+      "id": 3,
+      "title": "Assignment 2 - Implement Best Practices",
+      "video_id": 2,
+      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
+      "totalMark": 100
+    },
+    {
+      "id": 4,
+      "title": "Assignment 2 - Implement Best Practices",
+      "video_id": 2,
+      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
+      "totalMark": 100
+    },
+    {
+      "title": "234",
+      "video_id": 10,
+      "video_title": "Java for the Haters in 100 Seconds",
+      "totalMark": "234",
+      "id": 7
+    },
+    {
+      "title": "assigment 5",
+      "video_id": 10,
+      "video_title": "Java for the Haters in 100 Seconds",
+      "totalMark": "90",
+      "id": 8
+    },
+    {
+      "title": "assigment 3",
+      "video_id": 11,
+      "video_title": "Hello word",
+      "totalMark": "90",
+      "id": 9
+    },
+    {
+      "title": "24234",
+      "video_id": 1,
+      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
+      "totalMark": "44",
+      "id": 10
     }
   ],
   "quizzes": [

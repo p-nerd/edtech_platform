@@ -1,20 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { setVideoEditId, toggleVideoEditOpen } from "../../features/modal/modalSlice";
-import { useDeleteVideoMutation } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
+import { useDeleteAssignmentMutation } from "../../features/assignment/assignmentApi";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
 
-const VideoItem = ({ video }) => {
+const AssignmentItem = ({ assignment }) => {
     const dispatch = useDispatch();
-    const { id, title, url, description } = video;
+    const { id, title, video_id, video_title, totalMark } = assignment;
 
-    const [deleteVideo, { error }] = useDeleteVideoMutation();
+    const [deleteAssignment, { error }] = useDeleteAssignmentMutation();
 
     const handleDelete = () => {
-        deleteVideo(id);
+        deleteAssignment(id);
     };
 
     const handleEdit = () => {
@@ -30,13 +27,9 @@ const VideoItem = ({ video }) => {
 
     return (
         <tr>
-            <td className="table-td hover:text-[#34B5FD]">
-                <Link to={url}>{title} </Link>
-            </td>
-            <td className="table-td">
-                {description?.slice(0, 40)}
-                {description?.length >= 40 && "..."}
-            </td>
+            <td className="table-td">{title}</td>
+            <td className="table-td">{video_title}</td>
+            <td className="table-td">{totalMark}</td>
             <td className="table-td flex gap-x-2">
                 <span onClick={handleDelete}>
                     <DeleteIcon />
@@ -49,4 +42,4 @@ const VideoItem = ({ video }) => {
     );
 };
 
-export default VideoItem;
+export default AssignmentItem;
