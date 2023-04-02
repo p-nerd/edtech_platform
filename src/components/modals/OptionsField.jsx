@@ -1,6 +1,6 @@
-const OptionsField = ({ options, value, setValue, label, id, ph, notRequired }) => {
+const OptionsField = ({ options, value, setValue, label, id, ph, notRequired, className }) => {
     return (
-        <div className="flex w-full flex-col space-y-3 rounded bg-[#1E293B] p-4 ">
+        <div className={`flex w-full flex-col space-y-3 rounded bg-[#1E293B] p-4 ${className}`}>
             <label htmlFor={id}>{label}</label>
             <select
                 required={!notRequired}
@@ -24,6 +24,7 @@ const OptionsField = ({ options, value, setValue, label, id, ph, notRequired }) 
 
 OptionsField.defaultProps = {
     notRequired: false,
+    className: "",
 };
 
 export default OptionsField;

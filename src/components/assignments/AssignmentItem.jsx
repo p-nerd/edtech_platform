@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteAssignmentMutation } from "../../features/assignment/assignmentApi";
+import {
+    setAssignmentEditId,
+    toggleAssignmentEditOpen,
+} from "../../features/modal/modalSlice";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
 
@@ -15,8 +19,8 @@ const AssignmentItem = ({ assignment }) => {
     };
 
     const handleEdit = () => {
-        dispatch(toggleVideoEditOpen());
-        dispatch(setVideoEditId(id));
+        dispatch(toggleAssignmentEditOpen());
+        dispatch(setAssignmentEditId(id));
     };
 
     useEffect(() => {

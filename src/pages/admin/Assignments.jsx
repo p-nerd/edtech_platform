@@ -1,5 +1,6 @@
 import AddAssignmentModal from "../../components/assignments/AddAssignmentModal";
 import AssignmentItem from "../../components/assignments/AssignmentItem";
+import EditAssignmentModal from "../../components/assignments/EditAssignmentModal";
 import AdminLayout from "../../components/layouts/AdminLayout";
 import { useGetAssignmentsQuery } from "../../features/assignment/assignmentApi";
 import useSetTitle from "../../hooks/useSetTitle";
@@ -15,6 +16,7 @@ const Assignments = () => {
                 <div className="mx-auto max-w-full px-5 lg:px-20">
                     <div className="bg-opacity-10 px-3 py-20">
                         <AddAssignmentModal />
+                        <EditAssignmentModal />
                         <div className="mt-4 overflow-x-auto">
                             {isLoading ? (
                                 <>Loading...</>

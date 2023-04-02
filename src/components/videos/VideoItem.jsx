@@ -6,6 +6,7 @@ import { useDeleteVideoMutation } from "../../features/videos/videosApi";
 import { errorTost } from "../../utils/tost";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
+import { sliceStr } from "../../utils/util";
 
 const VideoItem = ({ video }) => {
     const dispatch = useDispatch();
@@ -34,8 +35,7 @@ const VideoItem = ({ video }) => {
                 <Link to={url}>{title} </Link>
             </td>
             <td className="table-td">
-                {description?.slice(0, 40)}
-                {description?.length >= 40 && "..."}
+                {sliceStr(description, 40)}
             </td>
             <td className="table-td flex gap-x-2">
                 <span onClick={handleDelete}>
