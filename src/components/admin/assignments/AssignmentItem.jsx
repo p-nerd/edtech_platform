@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useDeleteAssignmentMutation } from "../../features/assignment/assignmentApi";
-import { setAssignmentEditId } from "../../features/modal/modalSlice";
-import DeleteIcon from "../icons/DeleteIcon";
-import EditIcon from "../icons/EditIcon";
+import { useDeleteAssignmentMutation } from "../../../features/assignment/assignmentApi";
+import { setAssignmentEditId } from "../../../features/modal/modalSlice";
+import DeleteIcon from "../../icons/DeleteIcon";
+import EditIcon from "../../icons/EditIcon";
 
 const AssignmentItem = ({ assignment }) => {
-    const { id, title, video_id, video_title, totalMark } = assignment;
+    const { id, title, video_title, totalMark } = assignment;
 
     const dispatch = useDispatch();
 

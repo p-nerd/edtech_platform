@@ -1,7 +1,7 @@
 import AdminLayout from "../../components/layouts/AdminLayout";
-import AddVideoModal from "../../components/videos/AddVideoModal";
-import EditVideoModal from "../../components/videos/EditVideoModal";
-import VideoItem from "../../components/videos/VideoItem";
+import AddVideoModal from "../../components/admin/videos/AddVideoModal";
+import EditVideoModal from "../../components/admin/videos/EditVideoModal";
+import VideoItem from "../../components/admin/videos/VideoItem";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import useSetTitle from "../../hooks/useSetTitle";
 

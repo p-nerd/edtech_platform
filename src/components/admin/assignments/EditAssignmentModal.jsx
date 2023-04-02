@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setQuizEditId } from "../../features/modal/modalSlice";
-import { useEditQuizMutation, useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
-import { useGetVideosQuery } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
-import SubmitButton from "../auths/SubmitButton";
+import {
+    useEditAssignmentMutation,
+    useGetAssignmentsQuery,
+} from "../../../features/assignment/assignmentApi";
+import { setAssignmentEditId } from "../../../features/modal/modalSlice";
+import { useGetVideosQuery } from "../../../features/videos/videosApi";
+import { errorTost } from "../../../utils/tost";
+import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";
 import OptionsField from "../modals/OptionsField";
-import QuizOptions from "./QuizOptions";
 
-const EditQuizModal = () => {
+const EditAssignmentModal = () => {
     const dispatch = useDispatch();
 
-    const quizEditId = useSelector(state => state.modal.quizEditId);
-
-    const [question, setQuestion] = useState("");
+    const [title, setTitle] = useState("");
     const [videoId, setVideoId] = useState("none");
-    const [options, setOptions] = useState([]);
+    const [totalMark, setTotalMark] = useState("");
+
+    const assignmentEditId = useSelector(state => state?.modal?.assignmentEditId);
 
     const { data: videos, error: videoError } = useGetVideosQuery();
-    const { data: quizzes, error: quizzesError } = useGetQuizzesQuery();
+    const { data: assignments, error: assignmentError } = useGetAssignmentsQuery();
 
-    const [editQuiz, { isLoading, isSuccess, error }] = useEditQuizMutation();
+    const [editAssignment, { isLoading, isSuccess, error }] = useEditAssignmentMutation();
 
     useEffect(() => {
         if (error) {
@@ -31,46 +33,46 @@ const EditQuizModal = () => {
         if (videoError) {
             errorTost(videoError?.data);
         }
-        if (quizzesError) {
-            errorTost(quizzesError?.data);
+        if (assignmentError) {
+            errorTost(assignmentError?.data);
         }
-    }, [error, videoError, quizzesError]);
+    }, [error, videoError, assignmentError]);
 
     useEffect(() => {
-        if (quizEditId && quizzes && quizzes?.length !== 0) {
-            const quiz = quizzes?.find(q => q.id === quizEditId);
-            if (quiz) {
-                setQuestion(quiz.question);
-                setVideoId(quiz.video_id);
-                setOptions(quiz.options);
+        if (assignmentEditId && assignments && assignments?.length !== 0) {
+            const assignment = assignments?.find(a => a.id === assignmentEditId);
+            if (assignment) {
+                setTitle(assignment.title);
+                setVideoId(assignment.video_id);
+                setTotalMark(assignment.totalMark);
             }
         }
-    }, [quizEditId, quizzes]);
+    }, [assignmentEditId, assignments]);
 
     useEffect(() => {
         if (isSuccess) {
-            setQuestion("");
+            setTitle("");
             setVideoId("none");
-            setOptions([]);
-            setClose(false);
+            setTotalMark("");
+            handleClose(false);
         }
     }, [isSuccess]);
 
-    const setClose = () => {
-        dispatch(setQuizEditId(0));
+    const handleClose = () => {
+        dispatch(setAssignmentEditId(0));
     };
 
     const handleSubmit = () => {
         if (videoId === "none") {
             errorTost("Choose video is required");
         } else if (videos && videos.length !== 0) {
-            editQuiz({
-                id: quizEditId,
+            editAssignment({
+                id: assignmentEditId,
                 data: {
-                    question,
+                    title,
                     video_id: videoId,
                     video_title: videos.find(v => v.id === videoId)?.title,
-                    options,
+                    totalMark,
                 },
             });
         }
@@ -78,7 +80,7 @@ const EditQuizModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Assignment" show={quizEditId} onClose={setClose}>
+            <Modal title="Update Assignment" show={assignmentEditId} onClose={handleClose}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -87,11 +89,11 @@ const EditQuizModal = () => {
                 >
                     <div className=" space-y-3">
                         <InputField
-                            value={question}
-                            setValue={setQuestion}
-                            label="Question"
-                            id="question"
-                            ph="Enter question title"
+                            value={title}
+                            setValue={setTitle}
+                            label="Title"
+                            id="title"
+                            ph="Enter assignment title"
                         />
                         {videos && videos.length !== 0 && (
                             <OptionsField
@@ -106,7 +108,13 @@ const EditQuizModal = () => {
                                 ph="Choose the video"
                             />
                         )}
-                        <QuizOptions options={options} setOptions={setOptions} />
+                        <InputField
+                            value={totalMark}
+                            setValue={setTotalMark}
+                            label="Total Mark"
+                            id="totalMark"
+                            ph="Enter Total Mark (like: 100)"
+                        />
                         <SubmitButton disabled={isLoading} label="Update Assignment" />
                     </div>
                 </form>
@@ -115,4 +123,4 @@ const EditQuizModal = () => {
     );
 };
 
-export default EditQuizModal;
+export default EditAssignmentModal;

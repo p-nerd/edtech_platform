@@ -1,76 +1,56 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setVideoEditId } from "../../features/modal/modalSlice";
-import { useEditVideoMutation, useGetVideosQuery } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
-import SubmitButton from "../auths/SubmitButton";
+import { useAddVideoMutation } from "../../../features/videos/videosApi";
+import { errorTost } from "../../../utils/tost";
+import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";
 import TextAreaField from "../modals/TextAreaField";
 
-const EditVideoModal = () => {
+const AddVideoModal = () => {
+    const [open, setOpen] = useState(false);
+
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
     const [views, setViews] = useState("");
     const [duration, setDuration] = useState("");
     const [description, setDescription] = useState("");
 
-    const dispatch = useDispatch();
-
-    const videoEditId = useSelector(state => state?.modal?.videoEditId);
-
-    const { data: videos, error: videosError } = useGetVideosQuery();
-
-    const [editVideo, { isSuccess, error }] = useEditVideoMutation();
+    const [addVideo, { isLoading, isSuccess, error }] = useAddVideoMutation();
 
     useEffect(() => {
         if (error) {
             errorTost(error?.data);
         }
-        if (videosError) {
-            errorTost(videosError?.data);
-        }
-    }, [error, videosError]);
-
-    useEffect(() => {
-        if (videoEditId && videos && videos?.length !== 0) {
-            const video = videos?.find(v => v.id === videoEditId);
-            if (video) {
-                setTitle(video.title);
-                setLink(video.url);
-                setViews(video.views);
-                setDuration(video.duration);
-                setDescription(video.description);
-            }
-        }
-    }, [videoEditId, videos]);
+    }, [error]);
 
     useEffect(() => {
         if (isSuccess) {
-            handleClose(false);
+            setTitle("");
+            setLink("");
+            setViews("");
+            setDuration("");
+            setDescription("");
+            setOpen(false);
         }
     }, [isSuccess]);
 
-    const handleClose = () => {
-        dispatch(setVideoEditId(0));
-    };
-
     const handleSubmit = () => {
-        editVideo({
-            id: videoEditId,
-            data: {
-                title,
-                url: link,
-                views,
-                duration,
-                description,
-            },
+        addVideo({
+            title,
+            url: link,
+            views,
+            duration,
+            description,
+            createdAt: new Date().toISOString(),
         });
     };
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Video" show={videoEditId} onClose={() => handleClose()}>
+            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
+                Add Video
+            </button>
+            <Modal title="Add Video" show={open} onClose={() => setOpen(false)}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -117,7 +97,7 @@ const EditVideoModal = () => {
                             id="description"
                             ph="Enter the description"
                         />
-                        <SubmitButton label="Update Video" />
+                        <SubmitButton disabled={isLoading} label="Save Video" />
                     </div>
                 </form>
             </Modal>
@@ -125,4 +105,4 @@ const EditVideoModal = () => {
     );
 };
 
-export default EditVideoModal;
+export default AddVideoModal;

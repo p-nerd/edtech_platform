@@ -102,7 +102,7 @@
       "url": "https://www.youtube.com/embed/E9ijIFBHZGs",
       "views": "",
       "duration": "",
-      "description": "fasdfsdafsdf",
+      "description": "Dex",
       "createdAt": "2023-04-02T00:54:54.213Z",
       "id": 11
     },
@@ -114,15 +114,6 @@
       "description": "description\n",
       "createdAt": "2023-04-02T10:37:02.628Z",
       "id": 14
-    },
-    {
-      "title": "2334324",
-      "url": "24234324",
-      "views": "",
-      "duration": "",
-      "description": "asdfsdf",
-      "createdAt": "2023-04-02T17:44:36.901Z",
-      "id": 15
     }
   ],
   "assignments": [
@@ -134,18 +125,11 @@
       "totalMark": 100
     },
     {
-      "id": 2,
-      "title": "Assignment 2 - Implement Best Practices",
-      "video_id": 2,
-      "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
-      "totalMark": 100
-    },
-    {
       "id": 3,
       "title": "Assignment 2 - Implement Best Practices",
       "video_id": 2,
       "video_title": "#2 JavaScript Tips and Tricks - JavaScript Job Interview Questions",
-      "totalMark": 100
+      "totalMark": "2444"
     },
     {
       "id": 4,
@@ -155,18 +139,18 @@
       "totalMark": 100
     },
     {
-      "title": "Assignment 3 - Implement Function in JS 2",
-      "video_id": 1,
-      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
-      "totalMark": "300",
-      "id": 11
-    },
-    {
       "title": "Assignment 4 - Implement Vector in java",
       "video_id": 10,
       "video_title": "Java for the Haters in 100 Seconds",
       "totalMark": "200",
       "id": 12
+    },
+    {
+      "title": "234",
+      "video_id": 10,
+      "video_title": "Java for the Haters in 100 Seconds",
+      "totalMark": "5555555",
+      "id": 13
     }
   ],
   "quizzes": [
@@ -238,11 +222,6 @@
           "isCorrect": true
         },
         {
-          "id": 2,
-          "option": "undefined represents the uninitialized value of a variable or property.",
-          "isCorrect": false
-        },
-        {
           "id": 3,
           "option": "Same thing",
           "isCorrect": false
@@ -251,22 +230,55 @@
           "id": 4,
           "option": "No Difference",
           "isCorrect": false
+        },
+        {
+          "id": 5,
+          "option": "Lorem Ipsum is simply dummy text",
+          "isCorrect": false
         }
       ]
     },
     {
-      "question": "The title 2",
+      "question": "234",
+      "video_id": 11,
+      "video_title": "Hello word",
+      "options": [
+        {
+          "id": 1,
+          "option": "23423",
+          "isCorrect": false
+        },
+        {
+          "id": 2,
+          "option": "24324",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "424234",
+          "isCorrect": 1
+        },
+        {
+          "id": 4,
+          "option": "3434",
+          "isCorrect": false
+        }
+      ],
+      "id": 4
+    },
+    {
+      "question": "234234",
       "video_id": 10,
       "video_title": "Java for the Haters in 100 Seconds",
       "options": [
         {
           "id": 1,
-          "option": "Lorem Ipsum is simply dummy text of",
-          "isCorrect": 0
+          "option": "4444",
+          "isCorrect": false
         },
         {
           "id": 2,
-          "option": "2222",
+          "option": "444",
           "isCorrect": false
         },
         {
@@ -276,11 +288,11 @@
         },
         {
           "id": 4,
-          "option": "2342342342342342",
-          "isCorrect": 1
+          "option": "444",
+          "isCorrect": false
         }
       ],
-      "id": 4
+      "id": 5
     }
   ],
   "assignmentMark": [

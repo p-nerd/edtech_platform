@@ -1,7 +1,7 @@
 import AdminLayout from "../../components/layouts/AdminLayout";
-import AddQuizModal from "../../components/quizzes/AddQuizModal";
-import EditQuizModal from "../../components/quizzes/EditQuizModal";
-import QuizItem from "../../components/quizzes/QuizItem";
+import AddQuizModal from "../../components/admin/quizzes/AddQuizModal";
+import EditQuizModal from "../../components/admin/quizzes/EditQuizModal";
+import QuizItem from "../../components/admin/quizzes/QuizItem";
 import { useGetQuizzesQuery } from "../../features/quizzes/quizzesApi";
 import useSetTitle from "../../hooks/useSetTitle";
 

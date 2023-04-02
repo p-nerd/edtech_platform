@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setQuizEditId } from "../../features/modal/modalSlice";
-import { useDeleteQuizMutation } from "../../features/quizzes/quizzesApi";
-import { sliceStr } from "../../utils/util";
-import DeleteIcon from "../icons/DeleteIcon";
-import EditIcon from "../icons/EditIcon";
+import { setQuizEditId } from "../../../features/modal/modalSlice";
+import { useDeleteQuizMutation } from "../../../features/quizzes/quizzesApi";
+import { sliceStr } from "../../../utils/util";
+import DeleteIcon from "../../icons/DeleteIcon";
+import EditIcon from "../../icons/EditIcon";
 
 const QuizItem = ({ quiz }) => {
     const { id, question, video_title } = quiz;

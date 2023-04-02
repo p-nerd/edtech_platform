@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { useAddAssignmentMutation } from "../../features/assignment/assignmentApi";
-import { useGetVideosQuery } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
-import SubmitButton from "../auths/SubmitButton";
+import { useAddQuizMutation } from "../../../features/quizzes/quizzesApi";
+import { useGetVideosQuery } from "../../../features/videos/videosApi";
+import { errorTost } from "../../../utils/tost";
+import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";
 import OptionsField from "../modals/OptionsField";
+import QuizOptions from "./QuizOptions";
 
-const AddAssignmentModal = () => {
+const AddQuizModal = () => {
     const [open, setOpen] = useState(false);
 
-    const [title, setTitle] = useState("");
+    const [question, setQuestion] = useState("");
     const [videoId, setVideoId] = useState("none");
-    const [totalMark, setTotalMark] = useState("");
+    const [options, setOptions] = useState([]);
 
     const { data: videos, error: videoError } = useGetVideosQuery();
 
-    const [addAssignment, { isLoading, isSuccess, error }] = useAddAssignmentMutation();
+    const [addQuiz, { isLoading, isSuccess, error }] = useAddQuizMutation();
 
     useEffect(() => {
         if (error) {
@@ -29,9 +30,9 @@ const AddAssignmentModal = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            setTitle("");
+            setQuestion("");
             setVideoId("none");
-            setTotalMark("");
+            setOptions([]);
             setOpen(false);
         }
     }, [isSuccess]);
@@ -39,22 +40,24 @@ const AddAssignmentModal = () => {
     const handleSubmit = () => {
         if (videoId === "none") {
             errorTost("Choose video is required");
+        } else if (options?.length !== 4) {
+            errorTost("4 options are required");
         } else if (videos && videos.length !== 0) {
-            addAssignment({
-                title,
+            addQuiz({
+                question,
                 video_id: videoId,
                 video_title: videos.find(v => v.id === videoId)?.title,
-                totalMark,
+                options,
             });
         }
     };
 
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(true)}>
-                Add Assignment
+            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
+                Add Quiz
             </button>
-            <Modal title="Add Assignment" show={open} onClose={() => setOpen(false)}>
+            <Modal title="Add Assignment" show={open} onClose={setOpen}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -63,11 +66,11 @@ const AddAssignmentModal = () => {
                 >
                     <div className=" space-y-3">
                         <InputField
-                            value={title}
-                            setValue={setTitle}
-                            label="Title"
-                            id="title"
-                            ph="Enter assignment title"
+                            value={question}
+                            setValue={setQuestion}
+                            label="Question"
+                            id="question"
+                            ph="Enter question title"
                         />
                         {videos && videos.length !== 0 && (
                             <OptionsField
@@ -82,13 +85,7 @@ const AddAssignmentModal = () => {
                                 ph="Choose the video"
                             />
                         )}
-                        <InputField
-                            value={totalMark}
-                            setValue={setTotalMark}
-                            label="Total Mark"
-                            id="totalMark"
-                            ph="Enter Total Mark (like: 100)"
-                        />
+                        <QuizOptions options={options} setOptions={setOptions} />
                         <SubmitButton disabled={isLoading} label="Save Assignment" />
                     </div>
                 </form>
@@ -97,4 +94,4 @@ const AddAssignmentModal = () => {
     );
 };
 
-export default AddAssignmentModal;
+export default AddQuizModal;

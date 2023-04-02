@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react";
-import { useAddQuizMutation } from "../../features/quizzes/quizzesApi";
-import { useGetVideosQuery } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
-import SubmitButton from "../auths/SubmitButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuizEditId } from "../../../features/modal/modalSlice";
+import { useEditQuizMutation, useGetQuizzesQuery } from "../../../features/quizzes/quizzesApi";
+import { useGetVideosQuery } from "../../../features/videos/videosApi";
+import { errorTost } from "../../../utils/tost";
+import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../modals/InputField";
 import Modal from "../modals/Modal";
 import OptionsField from "../modals/OptionsField";
 import QuizOptions from "./QuizOptions";
 
-const AddQuizModal = () => {
-    const [open, setOpen] = useState(false);
+const EditQuizModal = () => {
+    const dispatch = useDispatch();
+
+    const quizEditId = useSelector(state => state.modal.quizEditId);
 
     const [question, setQuestion] = useState("");
     const [videoId, setVideoId] = useState("none");
     const [options, setOptions] = useState([]);
 
     const { data: videos, error: videoError } = useGetVideosQuery();
+    const { data: quizzes, error: quizzesError } = useGetQuizzesQuery();
 
-    const [addQuiz, { isLoading, isSuccess, error }] = useAddQuizMutation();
+    const [editQuiz, { isLoading, isSuccess, error }] = useEditQuizMutation();
 
     useEffect(() => {
         if (error) {
@@ -26,36 +31,56 @@ const AddQuizModal = () => {
         if (videoError) {
             errorTost(videoError?.data);
         }
-    }, [error, videoError]);
+        if (quizzesError) {
+            errorTost(quizzesError?.data);
+        }
+    }, [error, videoError, quizzesError]);
+
+    useEffect(() => {
+        if (quizEditId && quizzes && quizzes?.length !== 0) {
+            const quiz = quizzes?.find(q => q.id === quizEditId);
+            if (quiz) {
+                setQuestion(quiz.question);
+                setVideoId(quiz.video_id);
+                setOptions(quiz.options);
+            }
+        }
+    }, [quizEditId, quizzes]);
 
     useEffect(() => {
         if (isSuccess) {
             setQuestion("");
             setVideoId("none");
             setOptions([]);
-            setOpen(false);
+            setClose(false);
         }
     }, [isSuccess]);
+
+    const setClose = () => {
+        dispatch(setQuizEditId(0));
+    };
 
     const handleSubmit = () => {
         if (videoId === "none") {
             errorTost("Choose video is required");
+        } else if (options?.length !== 4) {
+            errorTost("4 options are required");
         } else if (videos && videos.length !== 0) {
-            addQuiz({
-                question,
-                video_id: videoId,
-                video_title: videos.find(v => v.id === videoId)?.title,
-                options,
+            editQuiz({
+                id: quizEditId,
+                data: {
+                    question,
+                    video_id: videoId,
+                    video_title: videos.find(v => v.id === videoId)?.title,
+                    options,
+                },
             });
         }
     };
 
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
-                Add Quiz
-            </button>
-            <Modal title="Add Assignment" show={open} onClose={setOpen}>
+            <Modal title="Edit Assignment" show={quizEditId} onClose={setClose}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -84,7 +109,7 @@ const AddQuizModal = () => {
                             />
                         )}
                         <QuizOptions options={options} setOptions={setOptions} />
-                        <SubmitButton disabled={isLoading} label="Save Assignment" />
+                        <SubmitButton disabled={isLoading} label="Update Assignment" />
                     </div>
                 </form>
             </Modal>
@@ -92,4 +117,4 @@ const AddQuizModal = () => {
     );
 };
 
-export default AddQuizModal;
+export default EditQuizModal;

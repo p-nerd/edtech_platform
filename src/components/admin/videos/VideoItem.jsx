@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { setVideoEditId } from "../../features/modal/modalSlice";
-import { useDeleteVideoMutation } from "../../features/videos/videosApi";
-import { errorTost } from "../../utils/tost";
-import { sliceStr } from "../../utils/util";
-import DeleteIcon from "../icons/DeleteIcon";
-import EditIcon from "../icons/EditIcon";
+import { setVideoEditId } from "../../../features/modal/modalSlice";
+import { useDeleteVideoMutation } from "../../../features/videos/videosApi";
+import { errorTost } from "../../../utils/tost";
+import { sliceStr } from "../../../utils/util";
+import DeleteIcon from "../../icons/DeleteIcon";
+import EditIcon from "../../icons/EditIcon";
 
 const VideoItem = ({ video }) => {
     const dispatch = useDispatch();
