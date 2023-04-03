@@ -1,6 +1,6 @@
 import { useState } from "react";
+import AdminLayout from "../../components/admin/AdminLayout";
 import AssignmentMarkItem from "../../components/admin/assignmentMarks/AssignmentMarkItem";
-import AdminLayout from "../../components/layouts/AdminLayout";
 import { useGetAssignmentMarksQuery } from "../../features/assignmentMark/assignmentMarkApi";
 import useSetTitle from "../../hooks/useSetTitle";
 

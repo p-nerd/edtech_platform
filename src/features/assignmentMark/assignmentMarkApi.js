@@ -5,6 +5,17 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
         getAssignmentMarks: builder.query({
             query: () => "/assignmentMark",
         }),
+        getAssignmentMarkByAssignmentAndStudent: builder.query({
+            query: ({ studentId, assignmentId }) => `/assignmentMark?student_id=${studentId}`,
+            transformResponse: (response, _, { assignmentId }) => {
+                if (!response) return null;
+                if (!(response?.length !== 0)) return null;
+                console.log(assignmentId);
+                const assignmentMark = response?.find(a => a.assignment_id === assignmentId);
+                if (!assignmentMark) return null;
+                return assignmentMark;
+            },
+        }),
         deleteAssignmentMark: builder.mutation({
             query: assignmentMarkId => ({
                 url: `/assignmentMark/${assignmentMarkId}`,
@@ -57,4 +68,5 @@ export const {
     useEditAssignmentMarkMutation,
     useDeleteAssignmentMarkMutation,
     useAddAssignmentMarkMutation,
+    useGetAssignmentMarkByAssignmentAndStudentQuery,
 } = assignmentMarkApi;

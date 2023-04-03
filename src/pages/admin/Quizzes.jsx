@@ -1,4 +1,4 @@
-import AdminLayout from "../../components/layouts/AdminLayout";
+import AdminLayout from "../../components/admin/AdminLayout";
 import AddQuizModal from "../../components/admin/quizzes/AddQuizModal";
 import EditQuizModal from "../../components/admin/quizzes/EditQuizModal";
 import QuizItem from "../../components/admin/quizzes/QuizItem";

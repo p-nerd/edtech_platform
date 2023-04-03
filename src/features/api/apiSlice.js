@@ -22,7 +22,7 @@ const apiSlice = createApi({
         }
         return result;
     },
-    tagTypes: [""],
+    tagTypes: [],
     endpoints: builder => ({}),
 });
 

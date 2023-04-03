@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import AdminLayout from "../../components/layouts/AdminLayout";
+import AdminLayout from "../../components/admin/AdminLayout";
 import useSetTitle from "../../hooks/useSetTitle";
 
 const Dashboard = () => {

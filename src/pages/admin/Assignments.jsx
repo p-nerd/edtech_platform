@@ -1,7 +1,7 @@
+import AdminLayout from "../../components/admin/AdminLayout";
 import AddAssignmentModal from "../../components/admin/assignments/AddAssignmentModal";
 import AssignmentItem from "../../components/admin/assignments/AssignmentItem";
 import EditAssignmentModal from "../../components/admin/assignments/EditAssignmentModal";
-import AdminLayout from "../../components/layouts/AdminLayout";
 import { useGetAssignmentsQuery } from "../../features/assignment/assignmentApi";
 import useSetTitle from "../../hooks/useSetTitle";
 

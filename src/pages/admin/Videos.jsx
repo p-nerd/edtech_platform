@@ -1,4 +1,4 @@
-import AdminLayout from "../../components/layouts/AdminLayout";
+import AdminLayout from "../../components/admin/AdminLayout";
 import AddVideoModal from "../../components/admin/videos/AddVideoModal";
 import EditVideoModal from "../../components/admin/videos/EditVideoModal";
 import VideoItem from "../../components/admin/videos/VideoItem";

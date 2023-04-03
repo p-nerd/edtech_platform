@@ -1,9 +1,11 @@
-import { useState } from "react";
 import StudentLayout from "../components/layouts/StudentLayout";
 import MainPlayer from "../components/students/player/MainPlayer";
 import PlayerSidebar from "../components/students/player/PlayerSidebar";
+import useSetTitle from "../hooks/useSetTitle";
 
 const Player = () => {
+    useSetTitle("Player");
+
     return (
         <StudentLayout>
             <section className="bg-primary py-6">
