@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    activeVideo: {},
+    activeVideo: null,
+    activeAssignment: null,
 };
 
 const videosSlice = createSlice({

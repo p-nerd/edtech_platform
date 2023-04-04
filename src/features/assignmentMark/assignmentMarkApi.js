@@ -1,20 +1,24 @@
 import apiSlice from "../api/apiSlice";
 
 export const assignmentMarkApi = apiSlice.injectEndpoints({
+    tagTypes: ["AssignmentMark"],
     endpoints: builder => ({
         getAssignmentMarks: builder.query({
             query: () => "/assignmentMark",
         }),
         getAssignmentMarkByAssignmentAndStudent: builder.query({
-            query: ({ studentId, assignmentId }) => `/assignmentMark?student_id=${studentId}`,
+            query: ({ studentId, assignmentId }) =>
+                `/assignmentMark?student_id=${studentId}&assignment_id=${assignmentId}`,
             transformResponse: (response, _, { assignmentId }) => {
                 if (!response) return null;
                 if (!(response?.length !== 0)) return null;
-                console.log(assignmentId);
                 const assignmentMark = response?.find(a => a.assignment_id === assignmentId);
                 if (!assignmentMark) return null;
                 return assignmentMark;
             },
+            providesTags: (result, error, { assignmentId }) => [
+                { type: "AssignmentMark", id: assignmentId },
+            ],
         }),
         deleteAssignmentMark: builder.mutation({
             query: assignmentMarkId => ({
@@ -44,6 +48,9 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
                     })
                 );
             },
+            invalidatesTags: (result, error, arg) => [
+                { type: "AssignmentMark", id: result?.assignment_id },
+            ],
         }),
         editAssignmentMark: builder.mutation({
             query: ({ data, id }) => ({
@@ -59,6 +66,9 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
                     })
                 );
             },
+            invalidatesTags: (result, error, arg) => [
+                { type: "AssignmentMark", id: result?.assignment_id },
+            ],
         }),
     }),
 });

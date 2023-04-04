@@ -1,4 +1,4 @@
-import StudentLayout from "../components/layouts/StudentLayout";
+import StudentLayout from "../components/students/StudentLayout";
 
 const Quiz = () => {
     return (

@@ -1,34 +1,63 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useGetAssignmentByVideoQuery } from "../../../features/assignment/assignmentApi";
 import { useGetAssignmentMarkByAssignmentAndStudentQuery } from "../../../features/assignmentMark/assignmentMarkApi";
 import { selectUser } from "../../../features/auth/authSelectors";
+import { useGetQuizzesByVideoQuery } from "../../../features/quizzes/quizzesApi";
 import { selectActiveVideo } from "../../../features/videos/videosSelectors";
 import { errorTost } from "../../../utils/commonUtil";
 import { convertDate } from "../../../utils/dateUtil";
+import SubmitAssignment from "./SubmitAssignment";
 
 const MainPlayer = () => {
     const activeVideo = selectActiveVideo();
     const loggedUser = selectUser();
 
+    const [fetchAssignment, setFetchAssignment] = useState(false);
+    const [fetchAssignmentMark, setFetchAssignmentMark] = useState(false);
+    const [fetchQuiz, setFetchQuiz] = useState(false);
+    const [open, setOpen] = useState(false);
+
     const { data: assignment, error: assignmentError } = useGetAssignmentByVideoQuery(
         activeVideo?.id,
-        { skip: !activeVideo?.id }
+        { skip: !fetchAssignment }
     );
-    const { data: assignmentMark, error } = useGetAssignmentMarkByAssignmentAndStudentQuery(
-        { assignmentId: assignment?.id, studentId: loggedUser?.id },
-        { skip: !assignment?.id }
-    );
+    const { data: quizzes, error: quizzesError } = useGetQuizzesByVideoQuery(activeVideo?.id, {
+        skip: !fetchQuiz,
+    });
+
+    const { data: assignmentMark, error: assignmentMarkError } =
+        useGetAssignmentMarkByAssignmentAndStudentQuery(
+            { assignmentId: assignment?.id, studentId: loggedUser?.id },
+            { skip: !fetchAssignmentMark }
+        );
 
     useEffect(() => {
         if (assignmentError) {
             errorTost(assignmentError?.data);
         }
-        if (error) {
-            errorTost(error?.data);
+        if (assignmentMarkError) {
+            errorTost(assignmentMarkError?.data);
         }
-    }, [assignmentError, error]);
+        if (quizzesError) {
+            errorTost(quizzesError?.data);
+        }
+    }, [assignmentError, assignmentMarkError, quizzesError]);
 
-    // console.log(assignment, assignmentMark);
+    useEffect(() => {
+        if (activeVideo?.id) {
+            setFetchAssignment(true);
+            setFetchQuiz(true);
+        }
+    }, [activeVideo]);
+
+    useEffect(() => {
+        if (assignment?.id) {
+            setFetchAssignmentMark(true);
+        }
+    }, [assignment]);
+
+    console.log(quizzes);
 
     return (
         <>
@@ -59,18 +88,35 @@ const MainPlayer = () => {
                                     )
                                 </p>
                             ) : assignment ? (
-                                <p className="border-cyan text-cyan hover:bg-cyan hover:text-primary cursor-pointer rounded-full border px-3 py-1 text-sm font-bold">
-                                    এসাইনমেন্ট
-                                </p>
+                                <>
+                                    <p
+                                        onClick={() => setOpen(true)}
+                                        className="border-cyan text-cyan hover:bg-cyan hover:text-primary cursor-pointer rounded-full border px-3 py-1 text-sm font-bold"
+                                    >
+                                        এসাইনমেন্ট
+                                    </p>
+                                    {open && (
+                                        <SubmitAssignment
+                                            assignment={assignment}
+                                            student={loggedUser}
+                                            show={open}
+                                            onClose={() => setOpen(false)}
+                                        />
+                                    )}
+                                </>
                             ) : (
                                 <></>
                             )}
-                            <a
-                                href="./Quiz.html"
-                                className="border-cyan text-cyan hover:bg-cyan hover:text-primary rounded-full border px-3 py-1 text-sm font-bold"
-                            >
-                                কুইজে অংশগ্রহণ করুন
-                            </a>
+                            {quizzes?.length > 0 ? (
+                                <Link
+                                    to={`/quiz/${activeVideo?.id}`}
+                                    className="border-cyan text-cyan hover:bg-cyan hover:text-primary rounded-full border px-3 py-1 text-sm font-bold"
+                                >
+                                    কুইজে অংশগ্রহণ করুন
+                                </Link>
+                            ) : (
+                                <></>
+                            )}
                         </div>
                         <p className="mt-4 text-sm leading-6 text-slate-400">
                             {activeVideo?.description}

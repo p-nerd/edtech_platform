@@ -1,4 +1,4 @@
-import StudentLayout from "../components/layouts/StudentLayout";
+import StudentLayout from "../components/students/StudentLayout";
 import LeaderboardItem from "../components/students/LeaderboardItem";
 import LeaderboardTitle from "../components/students/LeaderboardTitle";
 

@@ -57,7 +57,7 @@ const AddQuizModal = () => {
             <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
                 Add Quiz
             </button>
-            <Modal title="Add Assignment" show={open} onClose={setOpen}>
+            <Modal title="Add Quiz" show={open} onClose={setOpen}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

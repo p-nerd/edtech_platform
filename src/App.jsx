@@ -46,9 +46,9 @@ const App = () => {
                     {adminRoute("/admin/quizzes", <Quizzes />)}
                     {adminRoute("/admin/assignment-marks", <AssignmentMarks />)}
 
+                    {studentRoute("/quiz/:id", <Quiz />)}
                     {studentRoute("/leaderboard", <Leaderboard />)}
                     {studentRoute("/player", <Player />)}
-                    {studentRoute("/quiz", <Quiz />)}
                 </Routes>
             )}
         </>

@@ -1,6 +1,7 @@
 import apiSlice from "../api/apiSlice";
 
 const assignmentApi = apiSlice.injectEndpoints({
+    tagTypes: ["Assignment"],
     endpoints: builder => ({
         getAssignments: builder.query({
             query: () => "/assignments",
@@ -12,6 +13,7 @@ const assignmentApi = apiSlice.injectEndpoints({
                 if (!(response?.length !== 0)) return null;
                 return response[0];
             },
+            providesTags: (result, error, video_id) => [{ type: "Assignment", id: video_id }],
         }),
         deleteAssignment: builder.mutation({
             query: assignmentId => ({
@@ -26,6 +28,7 @@ const assignmentApi = apiSlice.injectEndpoints({
                     })
                 );
             },
+            invalidatesTags: (result, error, arg) => [{ type: "Assignment", id: result?.video_id }],
         }),
         addAssignment: builder.mutation({
             query: data => ({
@@ -41,6 +44,7 @@ const assignmentApi = apiSlice.injectEndpoints({
                     })
                 );
             },
+            invalidatesTags: (result, error, arg) => [{ type: "Assignment", id: result?.video_id }],
         }),
         editAssignment: builder.mutation({
             query: ({ data, id }) => ({
@@ -56,6 +60,7 @@ const assignmentApi = apiSlice.injectEndpoints({
                     })
                 );
             },
+            invalidatesTags: (result, error, id) => [{ type: "Assignment", id: result?.video_id }],
         }),
     }),
 });

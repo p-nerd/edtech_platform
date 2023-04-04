@@ -1,4 +1,4 @@
-import StudentLayout from "../components/layouts/StudentLayout";
+import StudentLayout from "../components/students/StudentLayout";
 import MainPlayer from "../components/students/player/MainPlayer";
 import PlayerSidebar from "../components/students/player/PlayerSidebar";
 import useSetTitle from "../hooks/useSetTitle";

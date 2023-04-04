@@ -80,7 +80,7 @@ const EditQuizModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Assignment" show={quizEditId} onClose={setClose}>
+            <Modal title="Edit Quiz" show={quizEditId} onClose={setClose}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
