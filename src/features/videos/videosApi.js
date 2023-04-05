@@ -1,4 +1,3 @@
-import { store } from "../../store";
 import apiSlice from "../api/apiSlice";
 import { setActiveVideo } from "./videosSlice";
 
@@ -10,6 +9,9 @@ export const videosApi = apiSlice.injectEndpoints({
                 const { data } = await queryFulfilled;
                 dispatch(setActiveVideo(data[0]));
             },
+        }),
+        getVideosById: builder.query({
+            query: videoId => `/videos/${videoId}`,
         }),
         deleteVideo: builder.mutation({
             query: videoId => ({
@@ -61,6 +63,7 @@ export const videosApi = apiSlice.injectEndpoints({
 export const {
     useAddVideoMutation,
     useGetVideosQuery,
+    useGetVideosByIdQuery,
     useDeleteVideoMutation,
     useEditVideoMutation,
 } = videosApi;

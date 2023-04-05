@@ -8,6 +8,7 @@ import { selectActiveVideo } from "../../../features/videos/videosSelectors";
 import { errorTost } from "../../../utils/commonUtil";
 import { convertDate } from "../../../utils/dateUtil";
 import SubmitAssignment from "./SubmitAssignment";
+import { useGetQuizMarkByVideoAndStudentQuery } from "../../../features/quizMark/quizMarkApi";
 
 const MainPlayer = () => {
     const activeVideo = selectActiveVideo();
@@ -16,6 +17,8 @@ const MainPlayer = () => {
     const [fetchAssignment, setFetchAssignment] = useState(false);
     const [fetchAssignmentMark, setFetchAssignmentMark] = useState(false);
     const [fetchQuiz, setFetchQuiz] = useState(false);
+    const [fetchQuizMark, setFetchQuizMark] = useState(false);
+
     const [open, setOpen] = useState(false);
 
     const { data: assignment, error: assignmentError } = useGetAssignmentByVideoQuery(
@@ -25,12 +28,18 @@ const MainPlayer = () => {
     const { data: quizzes, error: quizzesError } = useGetQuizzesByVideoQuery(activeVideo?.id, {
         skip: !fetchQuiz,
     });
-
     const { data: assignmentMark, error: assignmentMarkError } =
         useGetAssignmentMarkByAssignmentAndStudentQuery(
             { assignmentId: assignment?.id, studentId: loggedUser?.id },
             { skip: !fetchAssignmentMark }
         );
+    const { data: quizMark, error: quizMarkError } = useGetQuizMarkByVideoAndStudentQuery(
+        {
+            videoId: activeVideo?.id,
+            studentId: loggedUser?.id,
+        },
+        { skip: !fetchQuizMark }
+    );
 
     useEffect(() => {
         if (assignmentError) {
@@ -42,12 +51,16 @@ const MainPlayer = () => {
         if (quizzesError) {
             errorTost(quizzesError?.data);
         }
-    }, [assignmentError, assignmentMarkError, quizzesError]);
+        if (quizMarkError) {
+            errorTost(quizMarkError?.data);
+        }
+    }, [assignmentError, assignmentMarkError, quizzesError, quizMarkError]);
 
     useEffect(() => {
         if (activeVideo?.id) {
             setFetchAssignment(true);
             setFetchQuiz(true);
+            setFetchQuizMark(true);
         }
     }, [activeVideo]);
 
@@ -56,8 +69,6 @@ const MainPlayer = () => {
             setFetchAssignmentMark(true);
         }
     }, [assignment]);
-
-    console.log(quizzes);
 
     return (
         <>
@@ -112,7 +123,9 @@ const MainPlayer = () => {
                                     to={`/quiz/${activeVideo?.id}`}
                                     className="border-cyan text-cyan hover:bg-cyan hover:text-primary rounded-full border px-3 py-1 text-sm font-bold"
                                 >
-                                    কুইজে অংশগ্রহণ করুন
+                                    {quizMark
+                                        ? "আপনি ইতিমধ্যে কুইজে অংশগ্রহণ করেছেন।"
+                                        : "কুইজে অংশগ্রহণ করুন"}
                                 </Link>
                             ) : (
                                 <></>

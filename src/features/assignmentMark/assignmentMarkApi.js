@@ -9,12 +9,10 @@ export const assignmentMarkApi = apiSlice.injectEndpoints({
         getAssignmentMarkByAssignmentAndStudent: builder.query({
             query: ({ studentId, assignmentId }) =>
                 `/assignmentMark?student_id=${studentId}&assignment_id=${assignmentId}`,
-            transformResponse: (response, _, { assignmentId }) => {
+            transformResponse: (response, _, arg) => {
                 if (!response) return null;
                 if (!(response?.length !== 0)) return null;
-                const assignmentMark = response?.find(a => a.assignment_id === assignmentId);
-                if (!assignmentMark) return null;
-                return assignmentMark;
+                return response[0];
             },
             providesTags: (result, error, { assignmentId }) => [
                 { type: "AssignmentMark", id: assignmentId },
