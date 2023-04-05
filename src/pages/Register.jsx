@@ -4,7 +4,7 @@ import EmailField from "../components/auths/EmailField";
 import PasswordField from "../components/auths/PasswordField";
 import SubmitButton from "../components/auths/SubmitButton";
 import Error from "../components/common/Error";
-import AuthLayout from "../components/layouts/AuthLayout";
+import AuthLayout from "../components/auths/AuthLayout";
 import { useRegisterMutation } from "../features/auth/authApi";
 import useIsLoggedIn from "../hooks/useIsLoggedIn";
 import useSetTitle from "../hooks/useSetTitle";

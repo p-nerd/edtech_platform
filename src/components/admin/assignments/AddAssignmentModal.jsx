@@ -3,9 +3,9 @@ import { useAddAssignmentMutation } from "../../../features/assignment/assignmen
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
-import InputField from "../modals/InputField";
-import Modal from "../modals/Modal";
-import OptionsField from "../modals/OptionsField";
+import InputField from "../../modals/InputField";
+import Modal from "../../modals/Modal";
+import OptionsField from "../../modals/OptionsField";
 
 const AddAssignmentModal = () => {
     const [open, setOpen] = useState(false);

@@ -1,3 +1,5 @@
 import { useSelector } from "react-redux";
 
-export const selectActiveVideo = () => useSelector(state => state?.videos?.activeVideo);
+export const selectActiveVideo = () => {
+    return useSelector(state => state?.videos?.activeVideo);
+};

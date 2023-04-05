@@ -2,8 +2,8 @@ import { useState } from "react";
 import { errorTost } from "../../../utils/commonUtil";
 import DeleteIcon from "../../icons/DeleteIcon";
 import EditIcon from "../../icons/EditIcon";
-import InputField from "../modals/InputField";
-import OptionsField from "../modals/OptionsField";
+import InputField from "../../modals/InputField";
+import OptionsField from "../../modals/OptionsField";
 
 const QuizOptions = ({ options, setOptions }) => {
     const [optionTitle, setOptionTitle] = useState("");

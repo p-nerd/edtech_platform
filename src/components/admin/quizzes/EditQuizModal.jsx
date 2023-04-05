@@ -5,9 +5,9 @@ import { useEditQuizMutation, useGetQuizzesQuery } from "../../../features/quizz
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
-import InputField from "../modals/InputField";
-import Modal from "../modals/Modal";
-import OptionsField from "../modals/OptionsField";
+import InputField from "../../modals/InputField";
+import Modal from "../../modals/Modal";
+import OptionsField from "../../modals/OptionsField";
 import QuizOptions from "./QuizOptions";
 
 const EditQuizModal = () => {

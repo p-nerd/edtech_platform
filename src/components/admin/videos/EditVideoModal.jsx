@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { selectVideoEditId } from "../../../features/modal/modalSelectors";
 import { setVideoEditId } from "../../../features/modal/modalSlice";
 import { useEditVideoMutation, useGetVideosQuery } from "../../../features/videos/videosApi";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
-import InputField from "../modals/InputField";
-import Modal from "../modals/Modal";
-import TextAreaField from "../modals/TextAreaField";
+import InputField from "../../modals/InputField";
+import Modal from "../../modals/Modal";
+import TextAreaField from "../../modals/TextAreaField";
 
 const EditVideoModal = () => {
+    const dispatch = useDispatch();
+
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
     const [views, setViews] = useState("");
     const [duration, setDuration] = useState("");
     const [description, setDescription] = useState("");
 
-    const dispatch = useDispatch();
-
-    const videoEditId = useSelector(state => state?.modal?.videoEditId);
+    const videoEditId = selectVideoEditId();
 
     const { data: videos, error: videosError } = useGetVideosQuery();
-
     const [editVideo, { isSuccess, error }] = useEditVideoMutation();
 
     useEffect(() => {
@@ -45,15 +45,15 @@ const EditVideoModal = () => {
         }
     }, [videoEditId, videos]);
 
-    useEffect(() => {
-        if (isSuccess) {
-            handleClose(false);
-        }
-    }, [isSuccess]);
-
-    const handleClose = () => {
+    const handleCloseEditModal = () => {
         dispatch(setVideoEditId(0));
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            handleCloseEditModal(false);
+        }
+    }, [isSuccess]);
 
     const handleSubmit = () => {
         editVideo({
@@ -70,7 +70,7 @@ const EditVideoModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Video" show={videoEditId} onClose={() => handleClose()}>
+            <Modal title="Edit Video" show={videoEditId} onClose={handleCloseEditModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

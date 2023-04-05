@@ -7,7 +7,7 @@ import EmailField from "./../../components/auths/EmailField";
 import PasswordField from "./../../components/auths/PasswordField";
 import SubField from "./../../components/auths/SubField";
 import SubmitButton from "./../../components/auths/SubmitButton";
-import AuthLayout from "./../../components/layouts/AuthLayout";
+import AuthLayout from "../../components/auths/AuthLayout";
 import useIsAdmin from "./../../hooks/useIsAdmin";
 import { selectAuthError } from "../../features/auth/authSelectors";
 

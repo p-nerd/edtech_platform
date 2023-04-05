@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useAddVideoMutation } from "../../../features/videos/videosApi";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
-import InputField from "../modals/InputField";
-import Modal from "../modals/Modal";
-import TextAreaField from "../modals/TextAreaField";
+import InputField from "../../modals/InputField";
+import Modal from "../../modals/Modal";
+import TextAreaField from "../../modals/TextAreaField";
 
 const AddVideoModal = () => {
     const [open, setOpen] = useState(false);
@@ -45,12 +45,20 @@ const AddVideoModal = () => {
         });
     };
 
+    const handleOpenAddVideoModal = () => {
+        setOpen(true);
+    };
+
+    const handleCloseAddVideoModal = () => {
+        setOpen(false);
+    };
+
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
+            <button className="btn ml-auto" onClick={handleOpenAddVideoModal}>
                 Add Video
             </button>
-            <Modal title="Add Video" show={open} onClose={() => setOpen(false)}>
+            <Modal title="Add Video" show={open} onClose={handleCloseAddVideoModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

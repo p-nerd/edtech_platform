@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import InputField from "../../admin/modals/InputField";
-import Modal from "../../admin/modals/Modal";
+import InputField from "../../modals/InputField";
+import Modal from "../../modals/Modal";
 import SubmitButton from "../../auths/SubmitButton";
 import ConfirmModal from "../../common/ConfirmModal";
 import { useAddAssignmentMarkMutation } from "../../../features/assignmentMark/assignmentMarkApi";

@@ -6,6 +6,7 @@ import { useGetAssignmentMarksQuery } from "../features/assignmentMark/assignmen
 import { selectUser } from "../features/auth/authSelectors";
 import { useGetQuizMarksQuery } from "../features/quizMark/quizMarkApi";
 import { errorTost } from "../utils/commonUtil";
+import useSetTitle from "../hooks/useSetTitle";
 
 const getStudentsFormAssignmentMarks = assignmentMarks => {
     let students = [];
@@ -90,6 +91,8 @@ const getLoggedStudent = (students, userId) => {
 };
 
 const Leaderboard = () => {
+    useSetTitle("Leaderboard");
+
     const loggedUser = selectUser();
 
     const [students, setStudents] = useState(null);
