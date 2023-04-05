@@ -36,10 +36,6 @@ const quizMarkApi = apiSlice.injectEndpoints({
                 { type: "quizMarkItem", id: videoId, sid: studentId },
             ],
         }),
-        getQuizMarkByVideoAndStudent: builder.query({
-            query: ({ videoId, studentId }) =>
-                `/quizMark?student_id=${studentId}&video_id=${videoId}`,
-        }),
         // deleteQuizMark: builder.mutation({
         //     query: quizMarkId => ({
         //         url: `/quizMark/${quizMarkId}`,

@@ -83,7 +83,18 @@ const Leaderboard = () => {
                 const totalMarksB = b.assignmentMark + b.quizMark;
                 return totalMarksB - totalMarksA;
             });
-            students = students.map((student, index) => ({ ...student, rank: index + 1 }));
+
+            let lastTotalMark = Infinity;
+            let lastRank = 0;
+
+            students = students.map(student => {
+                const totalMark = student.assignmentMark + student.quizMark;
+                if (totalMark !== lastTotalMark) {
+                    lastRank++;
+                }
+                lastTotalMark = totalMark;
+                return { ...student, rank: lastRank };
+            });
 
             const you = students.find(s => s.id === loggedUser?.id);
             if (you) {
@@ -97,6 +108,8 @@ const Leaderboard = () => {
                     rank: -1,
                 });
             }
+
+            students = students.filter(student => student.rank <= 20);
 
             setStudents(students);
         }
