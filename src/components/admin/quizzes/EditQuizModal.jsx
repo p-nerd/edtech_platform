@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setQuizEditId } from "../../../features/modal/modalSlice";
 import { useEditQuizMutation, useGetQuizzesQuery } from "../../../features/quizzes/quizzesApi";
+import { selectQuizEditId } from "../../../features/quizzes/quizzesSelectors";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
@@ -13,7 +14,7 @@ import QuizOptions from "./QuizOptions";
 const EditQuizModal = () => {
     const dispatch = useDispatch();
 
-    const quizEditId = useSelector(state => state.modal.quizEditId);
+    const quizEditId = selectQuizEditId();
 
     const [question, setQuestion] = useState("");
     const [videoId, setVideoId] = useState("none");
@@ -47,18 +48,18 @@ const EditQuizModal = () => {
         }
     }, [quizEditId, quizzes]);
 
+    const handleCloseModal = () => {
+        dispatch(setQuizEditId(0));
+    };
+
     useEffect(() => {
         if (isSuccess) {
             setQuestion("");
             setVideoId("none");
             setOptions([]);
-            setClose(false);
+            handleCloseModal(false);
         }
     }, [isSuccess]);
-
-    const setClose = () => {
-        dispatch(setQuizEditId(0));
-    };
 
     const handleSubmit = () => {
         if (videoId === "none") {
@@ -80,7 +81,7 @@ const EditQuizModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Edit Quiz" show={quizEditId} onClose={setClose}>
+            <Modal title="Edit Quiz" show={quizEditId} onClose={handleCloseModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

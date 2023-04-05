@@ -19,8 +19,13 @@ const QuizItem = ({ quiz }) => {
         }
     }, [error]);
 
-    const handleDelete = () => deleteQuiz(id);
-    const handleEdit = () => dispatch(setQuizEditId(id));
+    const handleDelete = () => {
+        deleteQuiz(id);
+    };
+
+    const handleEdit = () => {
+        dispatch(setQuizEditId(id));
+    };
 
     return (
         <tr>

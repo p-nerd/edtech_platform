@@ -52,12 +52,20 @@ const AddQuizModal = () => {
         }
     };
 
+    const handleOpenModal = () => {
+        setOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpen(false);
+    };
+
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(prev => !prev)}>
+            <button className="btn ml-auto" onClick={handleOpenModal}>
                 Add Quiz
             </button>
-            <Modal title="Add Quiz" show={open} onClose={setOpen}>
+            <Modal title="Add Quiz" show={open} onClose={handleCloseModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();

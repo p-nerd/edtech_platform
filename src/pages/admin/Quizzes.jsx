@@ -19,11 +19,11 @@ const Quizzes = () => {
                         <EditQuizModal />
                         <div className="mt-4 overflow-x-auto">
                             {isLoading ? (
-                                <>Loading...</>
+                                <div className="text-center">Loading...</div>
                             ) : error ? (
-                                <>{error?.data}</>
+                                <div className="text-center">{error?.data}</div>
                             ) : quizzes && quizzes?.length === 0 ? (
-                                <>There is no quizzes</>
+                                <div className="text-center">There is no quizzes</div>
                             ) : (
                                 <table className="divide-y-1 w-full divide-gray-600 text-base">
                                     <thead>

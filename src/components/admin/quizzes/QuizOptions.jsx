@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { errorTost } from "../../../utils/commonUtil";
-import DeleteIcon from "../../icons/DeleteIcon";
 import EditIcon from "../../icons/EditIcon";
 import InputField from "../../modals/InputField";
 import OptionsField from "../../modals/OptionsField";
@@ -21,7 +20,11 @@ const QuizOptions = ({ options, setOptions }) => {
             setOptions(prev =>
                 prev?.map(option => {
                     if (option.id === optionUpdateId) {
-                        return { ...option, option: optionTitle, isCorrect: isOptionCorrect };
+                        return {
+                            ...option,
+                            option: optionTitle,
+                            isCorrect: isOptionCorrect ? true : false,
+                        };
                     }
                     return option;
                 })
@@ -37,7 +40,13 @@ const QuizOptions = ({ options, setOptions }) => {
             return;
         }
         if (options.length === 0) {
-            setOptions([{ id: 1, option: optionTitle, isCorrect: isOptionCorrect ? true : false }]);
+            setOptions([
+                {
+                    id: 1,
+                    option: optionTitle,
+                    isCorrect: isOptionCorrect ? true : false,
+                },
+            ]);
             resetState();
         } else {
             setOptions(prev => [
@@ -50,10 +59,6 @@ const QuizOptions = ({ options, setOptions }) => {
             ]);
             resetState();
         }
-    };
-
-    const handleDelete = id => {
-        setOptions(prev => prev.filter(p => p.id !== id));
     };
 
     const handleClickEdit = id => {
@@ -79,9 +84,6 @@ const QuizOptions = ({ options, setOptions }) => {
                                 </span>
                                 <span onClick={() => handleClickEdit(o.id)}>
                                     <EditIcon />
-                                </span>
-                                <span onClick={() => handleDelete(o.id)}>
-                                    <DeleteIcon />
                                 </span>
                             </div>
                         </div>

@@ -114,6 +114,13 @@
       "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
       "totalMark": "100",
       "id": 1
+    },
+    {
+      "title": "two",
+      "video_id": 11,
+      "video_title": "HOW TO PUT A BABY TO SLEEP",
+      "totalMark": "100",
+      "id": 2
     }
   ],
   "quizzes": [
@@ -144,34 +151,6 @@
         }
       ],
       "id": 1
-    },
-    {
-      "question": "Quiz two",
-      "video_id": 1,
-      "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
-      "options": [
-        {
-          "id": 1,
-          "option": "one",
-          "isCorrect": false
-        },
-        {
-          "id": 2,
-          "option": "two",
-          "isCorrect": true
-        },
-        {
-          "id": 3,
-          "option": "three",
-          "isCorrect": 0
-        },
-        {
-          "id": 4,
-          "option": "four",
-          "isCorrect": false
-        }
-      ],
-      "id": 2
     },
     {
       "question": "Quiz three",
@@ -228,6 +207,62 @@
         }
       ],
       "id": 4
+    },
+    {
+      "question": "Quiz five",
+      "video_id": 10,
+      "video_title": "Java for the Haters in 100 Seconds",
+      "options": [
+        {
+          "id": 1,
+          "option": "one",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "option": "two",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "three",
+          "isCorrect": true
+        },
+        {
+          "id": 4,
+          "option": "four",
+          "isCorrect": 1
+        }
+      ],
+      "id": 5
+    },
+    {
+      "question": "Quiz six",
+      "video_id": 11,
+      "video_title": "HOW TO PUT A BABY TO SLEEP",
+      "options": [
+        {
+          "id": 1,
+          "option": "one",
+          "isCorrect": true
+        },
+        {
+          "id": 2,
+          "option": "two",
+          "isCorrect": false
+        },
+        {
+          "id": 3,
+          "option": "three",
+          "isCorrect": false
+        },
+        {
+          "id": 4,
+          "option": "four",
+          "isCorrect": false
+        }
+      ],
+      "id": 6
     }
   ],
   "assignmentMark": [
@@ -364,6 +399,18 @@
       "totalMark": 5,
       "mark": 5,
       "id": 5
+    },
+    {
+      "student_id": 1,
+      "student_name": "LWS Admin",
+      "video_id": 11,
+      "video_title": "HOW TO PUT A BABY TO SLEEP",
+      "totalQuiz": 1,
+      "totalCorrect": 1,
+      "totalWrong": 0,
+      "totalMark": 5,
+      "mark": 5,
+      "id": 6
     }
   ]
 }
