@@ -19,32 +19,30 @@ const Assignments = () => {
                         <EditAssignmentModal />
                         <div className="mt-4 overflow-x-auto">
                             {isLoading ? (
-                                <>Loading...</>
+                                <div className="text-center">Loading...</div>
                             ) : error ? (
-                                <>{error?.data}</>
+                                <div className="text-center">{error?.data}</div>
                             ) : assignments && assignments?.length === 0 ? (
-                                <>There is no videos</>
+                                <div className="text-center">There is no videos</div>
                             ) : (
-                                <>
-                                    <table className="divide-y-1 w-full divide-gray-600 text-base">
-                                        <thead>
-                                            <tr>
-                                                <th className="table-th">Title</th>
-                                                <th className="table-th">Video Title</th>
-                                                <th className="table-th">Mark</th>
-                                                <th className="table-th">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-slate-600/50">
-                                            {assignments.map(assignment => (
-                                                <AssignmentItem
-                                                    key={assignment.id}
-                                                    assignment={assignment}
-                                                />
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </>
+                                <table className="divide-y-1 w-full divide-gray-600 text-base">
+                                    <thead>
+                                        <tr>
+                                            <th className="table-th">Title</th>
+                                            <th className="table-th">Video Title</th>
+                                            <th className="table-th">Mark</th>
+                                            <th className="table-th">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-600/50">
+                                        {assignments.map(assignment => (
+                                            <AssignmentItem
+                                                key={assignment.id}
+                                                assignment={assignment}
+                                            />
+                                        ))}
+                                    </tbody>
+                                </table>
                             )}
                         </div>
                     </div>

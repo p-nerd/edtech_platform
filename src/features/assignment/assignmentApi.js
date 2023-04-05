@@ -65,7 +65,6 @@ const assignmentApi = apiSlice.injectEndpoints({
     }),
 });
 
-export default assignmentApi;
 export const {
     useAddAssignmentMutation,
     useDeleteAssignmentMutation,

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAddAssignmentMutation } from "../../../features/assignment/assignmentApi";
+import {
+    useAddAssignmentMutation,
+    useGetAssignmentsQuery,
+} from "../../../features/assignment/assignmentApi";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
+import { filteredVideosForAssignmentOptions } from "../../../utils/assignmentsUtil";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../../modals/InputField";
@@ -14,9 +18,18 @@ const AddAssignmentModal = () => {
     const [videoId, setVideoId] = useState("none");
     const [totalMark, setTotalMark] = useState("");
 
+    const [videosForOptions, setVideosForOptions] = useState(null);
+
     const { data: videos, error: videoError } = useGetVideosQuery();
+    const { data: assignments, error: assignmentsError } = useGetAssignmentsQuery();
 
     const [addAssignment, { isLoading, isSuccess, error }] = useAddAssignmentMutation();
+
+    useEffect(() => {
+        if ((assignments, videos)) {
+            setVideosForOptions(filteredVideosForAssignmentOptions(videos, assignments));
+        }
+    }, [assignments, videos]);
 
     useEffect(() => {
         if (error) {
@@ -24,6 +37,9 @@ const AddAssignmentModal = () => {
         }
         if (videoError) {
             errorTost(videoError?.data);
+        }
+        if (assignmentsError) {
+            errorTost(assignmentsError?.data);
         }
     }, [error, videoError]);
 
@@ -49,12 +65,20 @@ const AddAssignmentModal = () => {
         }
     };
 
+    const handleOpenAddAssignmentModal = () => {
+        setOpen(true);
+    };
+
+    const handleCloseAddAssignmentModal = () => {
+        setOpen(false);
+    };
+
     return (
         <div className="flex w-full">
-            <button className="btn ml-auto" onClick={() => setOpen(true)}>
+            <button className="btn ml-auto" onClick={handleOpenAddAssignmentModal}>
                 Add Assignment
             </button>
-            <Modal title="Add Assignment" show={open} onClose={() => setOpen(false)}>
+            <Modal title="Add Assignment" show={open} onClose={handleCloseAddAssignmentModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -69,12 +93,16 @@ const AddAssignmentModal = () => {
                             id="title"
                             ph="Enter assignment title"
                         />
-                        {videos && videos.length !== 0 && (
+                        {videos &&
+                        videos.length !== 0 &&
+                        videosForOptions &&
+                        videosForOptions.length === 0 ? (
+                            <div className="space-y-3 rounded bg-[#1E293B] p-4">
+                                You don't have videos for add Assignment
+                            </div>
+                        ) : (
                             <OptionsField
-                                options={videos?.map(({ id, title }) => ({
-                                    id,
-                                    label: title,
-                                }))}
+                                options={videosForOptions}
                                 value={videoId}
                                 setValue={setVideoId}
                                 label="Choose The Video"

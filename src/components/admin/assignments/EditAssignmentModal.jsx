@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     useEditAssignmentMutation,
     useGetAssignmentsQuery,
 } from "../../../features/assignment/assignmentApi";
+import { selectAssignmentEditId } from "../../../features/assignment/assignmentSelectors";
 import { setAssignmentEditId } from "../../../features/modal/modalSlice";
 import { useGetVideosQuery } from "../../../features/videos/videosApi";
+import { filteredVideosForAssignmentOptions } from "../../../utils/assignmentsUtil";
 import { errorTost } from "../../../utils/commonUtil";
 import SubmitButton from "../../auths/SubmitButton";
 import InputField from "../../modals/InputField";
@@ -19,7 +21,9 @@ const EditAssignmentModal = () => {
     const [videoId, setVideoId] = useState("none");
     const [totalMark, setTotalMark] = useState("");
 
-    const assignmentEditId = useSelector(state => state?.modal?.assignmentEditId);
+    const [videosForOptions, setVideosForOptions] = useState(null);
+
+    const assignmentEditId = selectAssignmentEditId();
 
     const { data: videos, error: videoError } = useGetVideosQuery();
     const { data: assignments, error: assignmentError } = useGetAssignmentsQuery();
@@ -39,6 +43,14 @@ const EditAssignmentModal = () => {
     }, [error, videoError, assignmentError]);
 
     useEffect(() => {
+        if ((assignments, videos)) {
+            setVideosForOptions(
+                filteredVideosForAssignmentOptions(videos, assignments, assignmentEditId)
+            );
+        }
+    }, [assignments, videos, assignmentEditId]);
+
+    useEffect(() => {
         if (assignmentEditId && assignments && assignments?.length !== 0) {
             const assignment = assignments?.find(a => a.id === assignmentEditId);
             if (assignment) {
@@ -49,18 +61,18 @@ const EditAssignmentModal = () => {
         }
     }, [assignmentEditId, assignments]);
 
+    const handleCloseEditModal = () => {
+        dispatch(setAssignmentEditId(0));
+    };
+
     useEffect(() => {
         if (isSuccess) {
             setTitle("");
             setVideoId("none");
             setTotalMark("");
-            handleClose(false);
+            handleCloseEditModal(false);
         }
     }, [isSuccess]);
-
-    const handleClose = () => {
-        dispatch(setAssignmentEditId(0));
-    };
 
     const handleSubmit = () => {
         if (videoId === "none") {
@@ -80,7 +92,7 @@ const EditAssignmentModal = () => {
 
     return (
         <div className="flex w-full">
-            <Modal title="Update Assignment" show={assignmentEditId} onClose={handleClose}>
+            <Modal title="Update Assignment" show={assignmentEditId} onClose={handleCloseEditModal}>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -95,12 +107,16 @@ const EditAssignmentModal = () => {
                             id="title"
                             ph="Enter assignment title"
                         />
-                        {videos && videos.length !== 0 && (
+                        {videos &&
+                        videos.length !== 0 &&
+                        videosForOptions &&
+                        videosForOptions.length === 0 ? (
+                            <div className="space-y-3 rounded bg-[#1E293B] p-4">
+                                You don't have videos for add Assignment
+                            </div>
+                        ) : (
                             <OptionsField
-                                options={videos?.map(({ id, title }) => ({
-                                    id,
-                                    label: title,
-                                }))}
+                                options={videosForOptions}
                                 value={videoId}
                                 setValue={setVideoId}
                                 label="Choose The Video"
