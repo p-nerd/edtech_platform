@@ -112,22 +112,29 @@
       "title": "One assignment 333",
       "video_id": 1,
       "video_title": "Debounce Function in JavaScript - JavaScript Job Interview question 222",
-      "totalMark": "234",
+      "totalMark": "100",
       "id": 1
     },
     {
       "title": "two",
       "video_id": 11,
       "video_title": "HOW TO PUT A BABY TO SLEEP",
-      "totalMark": "234",
+      "totalMark": "100",
       "id": 2
     },
     {
       "title": "three",
       "video_id": 10,
       "video_title": "Java for the Haters in 100 Seconds",
-      "totalMark": "1234",
+      "totalMark": "100",
       "id": 3
+    },
+    {
+      "title": "four",
+      "video_id": 9,
+      "video_title": "Seerah: Life of the Prophet Muhammed ﷺ ",
+      "totalMark": 123,
+      "id": 4
     }
   ],
   "quizzes": [
@@ -263,8 +270,8 @@
       "assignment_id": 2,
       "title": "two",
       "createdAt": "2023-04-04T18:57:05.922Z",
-      "totalMark": "234",
-      "mark": "234",
+      "totalMark": 100,
+      "mark": 100,
       "repo_link": "hello",
       "status": "published",
       "id": 2
@@ -275,11 +282,35 @@
       "assignment_id": 3,
       "title": "three",
       "createdAt": "2023-04-04T19:04:00.995Z",
-      "totalMark": "1234",
-      "mark": "1234",
+      "totalMark": 100,
+      "mark": "230",
       "repo_link": "234",
       "status": "published",
       "id": 3
+    },
+    {
+      "student_id": 3,
+      "student_name": "Akash Ahmed",
+      "assignment_id": 4,
+      "title": "four",
+      "createdAt": "2023-04-05T16:41:17.306Z",
+      "totalMark": 123,
+      "mark": 123,
+      "repo_link": "link",
+      "status": "published",
+      "id": 4
+    },
+    {
+      "student_id": 2,
+      "student_name": "Saad Hasan",
+      "assignment_id": 1,
+      "title": "One assignment 333",
+      "createdAt": "2023-04-05T16:42:38.322Z",
+      "totalMark": "100",
+      "mark": "100",
+      "repo_link": "hello",
+      "status": "published",
+      "id": 5
     }
   ],
   "quizMark": [

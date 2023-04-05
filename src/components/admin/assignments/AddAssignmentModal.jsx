@@ -44,7 +44,7 @@ const AddAssignmentModal = () => {
                 title,
                 video_id: videoId,
                 video_title: videos.find(v => v.id === videoId)?.title,
-                totalMark,
+                totalMark: Number(totalMark),
             });
         }
     };

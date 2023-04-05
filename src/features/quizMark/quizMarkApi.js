@@ -3,6 +3,9 @@ import apiSlice from "../api/apiSlice";
 const quizMarkApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
         tagTypes: ["quizMarkItem"],
+        getQuizMarks: builder.query({
+            query: () => "/quizMark",
+        }),
         addQuizMark: builder.mutation({
             query: data => ({
                 url: "/quizMark",
@@ -12,14 +15,14 @@ const quizMarkApi = apiSlice.injectEndpoints({
             invalidatesTags: (result, error, arg) => [
                 { type: "quizMarkItem", id: result.video_id, sid: result.student_id },
             ],
-            // onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
-            //     const { data } = await queryFulfilled;
-            //     dispatch(
-            //         apiSlice.util.updateQueryData("getQuizMarks", undefined, draft => {
-            //             draft?.push(data);
-            //         })
-            //     );
-            // },
+            onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
+                const { data } = await queryFulfilled;
+                dispatch(
+                    apiSlice.util.updateQueryData("getQuizMarks", undefined, draft => {
+                        draft?.push(data);
+                    })
+                );
+            },
         }),
         getQuizMarkByVideoAndStudent: builder.query({
             query: ({ videoId, studentId }) =>
@@ -33,9 +36,10 @@ const quizMarkApi = apiSlice.injectEndpoints({
                 { type: "quizMarkItem", id: videoId, sid: studentId },
             ],
         }),
-        // getQuizMarks: builder.query({
-        //     query: () => "/quizMark",
-        // }),
+        getQuizMarkByVideoAndStudent: builder.query({
+            query: ({ videoId, studentId }) =>
+                `/quizMark?student_id=${studentId}&video_id=${videoId}`,
+        }),
         // deleteQuizMark: builder.mutation({
         //     query: quizMarkId => ({
         //         url: `/quizMark/${quizMarkId}`,
@@ -73,7 +77,7 @@ export default quizMarkApi;
 export const {
     useAddQuizMarkMutation,
     useGetQuizMarkByVideoAndStudentQuery,
-    // useGetQuizMarksQuery,
+    useGetQuizMarksQuery,
     // useDeleteQuizMarkMutation,
     // useEditQuizMarkMutation,
 } = quizMarkApi;
