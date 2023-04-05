@@ -55,11 +55,11 @@ const AssignmentMarks = () => {
                         </ul>
                         <div className="mt-4 overflow-x-auto">
                             {isLoading ? (
-                                <>Loading...</>
+                                <div className="text-center">Loading...</div>
                             ) : error ? (
-                                <>{error?.data}</>
+                                <div className="text-center">{error?.data}</div>
                             ) : assignmentMarks && assignmentMarks?.length === 0 ? (
-                                <>There is no assignmentMarks</>
+                                <div className="text-center">There is no assignmentMarks</div>
                             ) : (
                                 <table className="divide-y-1 w-full divide-gray-600 text-base">
                                     <thead>

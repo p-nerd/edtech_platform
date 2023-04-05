@@ -75,8 +75,8 @@ const mutateStudentsWithProperRank = students => {
     });
 };
 
-const getLoggedStudent = (students, userId) => {
-    const you = students.find(s => s.id === userId);
+const getLoggedStudent = (students, loggedUser) => {
+    const you = students.find(s => s.id === loggedUser?.id);
     if (you) {
         return you;
     } else {
@@ -130,7 +130,7 @@ const Leaderboard = () => {
             students = sortStudentsByTotalMarks(students);
             students = mutateStudentsWithProperRank(students);
 
-            setYou(getLoggedStudent(students, loggedUser?.id));
+            setYou(getLoggedStudent(students, loggedUser));
 
             students = students.filter(student => student.rank <= 20);
             setStudents(students);
