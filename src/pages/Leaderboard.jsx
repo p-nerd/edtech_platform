@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import LeaderboardItem from "../components/students/LeaderboardItem";
-import LeaderboardTitle from "../components/students/LeaderboardTitle";
 import StudentLayout from "../components/students/StudentLayout";
+import LeaderboardItem from "../components/students/leaderboard/LeaderboardItem";
+import LeaderboardTitle from "../components/students/leaderboard/LeaderboardTitle";
 import { useGetAssignmentMarksQuery } from "../features/assignmentMark/assignmentMarkApi";
 import { selectUser } from "../features/auth/authSelectors";
 import { useGetQuizMarksQuery } from "../features/quizMark/quizMarkApi";
-import { errorTost } from "../utils/commonUtil";
 import useSetTitle from "../hooks/useSetTitle";
+import { errorTost } from "../utils/commonUtil";
 
 const getStudentsFormAssignmentMarks = assignmentMarks => {
     let students = [];

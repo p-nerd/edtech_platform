@@ -36,44 +36,11 @@ const quizMarkApi = apiSlice.injectEndpoints({
                 { type: "quizMarkItem", id: videoId, sid: studentId },
             ],
         }),
-        // deleteQuizMark: builder.mutation({
-        //     query: quizMarkId => ({
-        //         url: `/quizMark/${quizMarkId}`,
-        //         method: "DELETE",
-        //     }),
-        //     onQueryStarted: async (quizMarkId, { queryFulfilled, dispatch }) => {
-        //         await queryFulfilled;
-        //         dispatch(
-        //             apiSlice.util.updateQueryData("getQuizMarks", undefined, draft => {
-        //                 return draft?.filter(d => d.id !== quizMarkId);
-        //             })
-        //         );
-        //     },
-        // }),
-
-        // editQuizMark: builder.mutation({
-        //     query: ({ data, id }) => ({
-        //         url: `/quizMark/${id}`,
-        //         method: "PATCH",
-        //         body: data,
-        //     }),
-        //     onQueryStarted: async ({ id }, { queryFulfilled, dispatch }) => {
-        //         const { data } = await queryFulfilled;
-        //         dispatch(
-        //             apiSlice.util.updateQueryData("getQuizMarks", undefined, draft => {
-        //                 return draft?.map(item => (item.id === id ? data : item));
-        //             })
-        //         );
-        //     },
-        // }),
     }),
 });
 
-export default quizMarkApi;
 export const {
     useAddQuizMarkMutation,
     useGetQuizMarkByVideoAndStudentQuery,
     useGetQuizMarksQuery,
-    // useDeleteQuizMarkMutation,
-    // useEditQuizMarkMutation,
 } = quizMarkApi;
